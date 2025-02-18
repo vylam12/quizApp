@@ -5,5 +5,5 @@ data class Vocabulary(
     val phonetic:String?, //phiên âm
     val meaning:String,
     val examples:List<String>,
-    val synonyms:List<String>,//từ đồng nghãi
+   // val synonyms:List<String>,//từ đồng nghãi
 )

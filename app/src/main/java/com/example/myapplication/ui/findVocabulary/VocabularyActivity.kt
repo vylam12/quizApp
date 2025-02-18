@@ -1,19 +1,28 @@
 package com.example.myapplication.ui.findVocabulary
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.R
+import com.example.myapplication.backend.model.Vocabulary
+import com.example.myapplication.backend.repositori.VobularyRepository
 import com.example.myapplication.backend.repositori.WordResponse
 import com.example.myapplication.backend.services.DictionaryService
 import com.example.myapplication.databinding.VocabularyActivityBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class VocabularyActivity:AppCompatActivity() {
+class VocabularyActivity:AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding:VocabularyActivityBinding
     private var wordText: String =" "
     private var meaningText: String =" "
@@ -27,8 +36,25 @@ class VocabularyActivity:AppCompatActivity() {
         val word = intent.getStringExtra("WORD")?:return
         wordText = word
         fetchWorDefinition(word)
+        mBinding.saveVocabulary.setOnClickListener(this)
 
-
+    }
+    override fun onClick(view: View?){
+        when(view?.id){
+            R.id.saveVocabulary -> handleSaveVocabulary()
+        }
+    }
+    private fun handleSaveVocabulary(){
+        val word = Vocabulary(wordText,meaningText,phoneticText, listOf(exampleText))
+      //  VobularyRepository().saveWord(word)
+        CoroutineScope(Dispatchers.IO).launch {
+            Log.d("Database", "Inserting word: $word")
+            VobularyRepository().saveWord(word)
+            Log.d("Database", "Insert success")
+            runOnUiThread {
+                Toast.makeText(this@VocabularyActivity, "Lưu từ vựng thành công", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
     private fun fetchWorDefinition(word:String){
         val retrofit = Retrofit.Builder()
@@ -64,6 +90,5 @@ class VocabularyActivity:AppCompatActivity() {
         mBinding.meaningText.text = meaningText
         mBinding.phoneticText.text = phoneticText
         mBinding.exampleText.text = exampleText
-
     }
 }

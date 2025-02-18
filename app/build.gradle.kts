@@ -1,9 +1,15 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
     id("kotlin-kapt")
 }
+val secretsPropertiesFiel = rootProject.file("secrets.properties")
+val secretsProperties =  Properties()
+secretsProperties.load( FileInputStream(secretsPropertiesFiel))
 
 android {
     namespace = "com.example.myapplication"
@@ -14,25 +20,29 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "MONGO_URI", "\"${secretsProperties["MONGO_URI"].toString()}\"")
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "MONGO_URI", "\"mongodb+srv://root123:1212003@quizapp.lx5nz.mongodb.net/?retryWrites=true&w=majority&appName=quizapp\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "MONGO_URI", "\"mongodb+srv://root123:1212003@quizapp.lx5nz.mongodb.net/?retryWrites=true&w=majority&appName=quizapp\"")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     viewBinding {
         enable  = true
@@ -40,6 +50,7 @@ android {
     buildFeatures{
         dataBinding = true
         viewBinding = true
+        buildConfig = true
     }
     packaging {
         resources {
@@ -54,6 +65,7 @@ android {
             excludes.add("META-INF/ASL2.0")
             excludes.add("META-INF/*.kotlin_module")
             excludes.add("META-INF/io.netty.versions.properties")
+            excludes.add("META-INF/native-image/org.mongodb/bson/native-image.properties")
         }
     }
 }
@@ -72,8 +84,10 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation("com.google.android.gms:play-services-auth:21.3.0")
+
     implementation("io.ktor:ktor-server-core:2.3.1")
     implementation("io.ktor:ktor-server-netty:2.3.1")
+
     implementation(libs.javax.persistence.api)
     implementation(libs.hibernate.core.v557final)
     implementation("com.jakewharton.threetenabp:threetenabp:1.4.4")
@@ -87,4 +101,17 @@ dependencies {
     implementation ("com.google.android.material:material:1.6.0")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.10.1")
+    implementation("org.litote.kmongo:kmongo-coroutine:4.5.1")
+    implementation("io.projectreactor:reactor-core:3.4.0")
+    implementation("org.slf4j:slf4j-api:1.6.1")
+    implementation("org.slf4j:slf4j-simple:1.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive:1.6.4")
+
+
+    implementation("org.litote.kmongo:kmongo:4.9.0")
+    implementation("org.litote.kmongo:kmongo-coroutine:4.9.0")
+
 }
+

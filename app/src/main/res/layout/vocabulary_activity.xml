@@ -37,5 +37,11 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textColor="#9C27B0" />
+
+        <Button
+            android:id="@+id/saveVocabulary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lưu từ vựng" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
