@@ -13,7 +13,7 @@ import com.example.myapplication.databinding.AuthActivityLoginBinding
 import com.example.myapplication.ui.BaseActivity
 import com.example.myapplication.ui.auth.viewmodel.ValidationViewModel
 import com.example.myapplication.ui.main.MainActivity
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.example.myapplication.viewmodel.AuthViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -28,6 +28,7 @@ class LoginActivity: BaseActivity(), View.OnClickListener, View.OnFocusChangeLis
 
     private lateinit var  mBinding: AuthActivityLoginBinding
     private val viewModel: ValidationViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     companion object{
@@ -36,6 +37,12 @@ class LoginActivity: BaseActivity(), View.OnClickListener, View.OnFocusChangeLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        firebaseAuth = FirebaseAuth.getInstance()
+        if (firebaseAuth.currentUser!=null){
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
+        }
+
         mBinding= AuthActivityLoginBinding.inflate(LayoutInflater.from(this))
         setContentView(mBinding.root)
         firebaseAuth= FirebaseAuth.getInstance()
@@ -45,13 +52,13 @@ class LoginActivity: BaseActivity(), View.OnClickListener, View.OnFocusChangeLis
                 .requestEmail()
                 .build()
         )
-
-        mBinding.emailTIL.onFocusChangeListener= this
-        mBinding.passwordTIL.onFocusChangeListener= this
-        mBinding.btnGG.setOnClickListener(this)
-        mBinding.btnLogin.setOnClickListener(this)
-        mBinding.textSignUp.setOnClickListener(this)
-
+        mBinding.apply {
+            emailTIL.onFocusChangeListener= this@LoginActivity
+            passwordTIL.onFocusChangeListener= this@LoginActivity
+            btnGG.setOnClickListener(this@LoginActivity)
+            btnLogin.setOnClickListener(this@LoginActivity)
+            textSignUp.setOnClickListener(this@LoginActivity)
+        }
     }
     override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
         return false
@@ -80,61 +87,54 @@ class LoginActivity: BaseActivity(), View.OnClickListener, View.OnFocusChangeLis
     }
     override fun onClick(v: View?) {
             when (v?.id) {
-                R.id.btnLogin -> {
-                    handleLogin()
-                }
-                R.id.btnGG -> {
-                    handleGG()
-                }
-                R.id.textSignUp -> {
-                    navigateToSignUp()
-                }
+                R.id.btnLogin -> handleLogin()
+                R.id.btnGG -> handleGoogleSignIn()
+                R.id.textSignUp -> navigateTo(RegisterActivity::class.java)
                 else -> Log.d("DEBUG", "Unknown view clicked")
             }
     }
 
-    override fun onStart(){
-        super.onStart()
-
-        if (firebaseAuth.currentUser!=null){
-            val intent= Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        } else{
-            val signInIntent= Intent(this, LoginActivity::class.java)
-            startActivity(signInIntent)
-        }
-
-    }
     private fun handleLogin(){
         val email =   mBinding.editTextTextEmail.text.toString()
         val password= mBinding.editTextTextPassword.text.toString()
 
-        var isValid= true
+        val emailError= viewModel.validateEmail(email)
+        val passError= viewModel.validatePassword(password)
 
-        if (viewModel.validateEmail(email)!= null){
-            val errMessage= viewModel.validateEmail(email)
-            Toast.makeText(this, errMessage, Toast.LENGTH_SHORT).show()
-            isValid= false
+        if (emailError!= null){
+            Toast.makeText(this, emailError, Toast.LENGTH_SHORT).show()
+            return
         }
-        if (viewModel.validatePassword(password)!= null){
-            val errMessage= viewModel.validatePassword(password)
-            Toast.makeText(this, errMessage, Toast.LENGTH_SHORT).show()
-            isValid= false
+        if (passError!= null){
+            Toast.makeText(this, passError, Toast.LENGTH_SHORT).show()
+            return
         }
-
-        if(isValid){
-            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
-                if (it.isSuccessful){
-                    val intent = Intent(this, RegisterActivity::class.java)
-                    startActivity(intent)
-                }else{
-                    Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-                }
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
+            if (it.isSuccessful){
+               firebaseAuth.currentUser?.getIdToken(true)
+                   ?.addOnSuccessListener { result->
+                       sendTokenToServer(result.token!!)
+                   }
+            }else{
+                Toast.makeText(this,"Login fail: ${it.exception.toString()}" , Toast.LENGTH_SHORT).show()
             }
         }
     }
-    private  fun handleGG(){
+
+    private fun sendTokenToServer(token:String){
+        authViewModel.login(this,token)
+
+        authViewModel.loginResponse.observe(this) { res ->
+            authViewModel.loginResponse.removeObservers(this)
+            if (res != null) {
+                Toast.makeText(this, "Login thành công!", Toast.LENGTH_SHORT).show()
+                navigateTo(MainActivity::class.java)
+            } else {
+                Toast.makeText(this, "Xác thực Login thất bại!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun handleGoogleSignIn(){
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
@@ -147,11 +147,16 @@ class LoginActivity: BaseActivity(), View.OnClickListener, View.OnFocusChangeLis
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(Exception::class.java)!!
-            firebaseAuthWithGoogle(account.idToken!!)
-        } catch (e: Exception) {
-            Toast.makeText(this, "Google Sign-In failed: ${e.message}", Toast.LENGTH_SHORT).show()
+        if (completedTask.isSuccessful) {
+            val account = completedTask.result
+            val idToken = account.idToken
+            if (idToken!=null){
+                firebaseAuthWithGoogle(account.idToken!!)
+            }else{
+                Toast.makeText(this, "Google Sign-In failed: ID Token is null", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(this, "Google Sign-In failed: ${completedTask.exception?.localizedMessage}", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -168,9 +173,7 @@ class LoginActivity: BaseActivity(), View.OnClickListener, View.OnFocusChangeLis
             }
         }
     }
-
-    private fun navigateToSignUp() {
-        val intent = Intent(applicationContext, RegisterActivity::class.java)
-        startActivity(intent)
+    private fun navigateTo(target: Class<*>) {
+        startActivity(Intent(this, target))
     }
 }

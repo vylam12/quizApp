@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/OtpTextInputLayout"
+    android:layout_width="56dp"
+    android:layout_height="56dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="6dp"
+    android:background="@drawable/input_otp_bg"
+ >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textHOtp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:maxLength="1"
+            android:textSelectHandle="@color/primary1_2"
+            tools:ignore="TouchTargetSizeCheck"
+            android:inputType="number"
+            android:textColor="@color/primary1_2"
+            android:padding="5dp"
+         />
+</com.google.android.material.textfield.TextInputLayout>

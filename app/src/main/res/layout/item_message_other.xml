@@ -12,6 +12,7 @@
         android:padding="8dp"
         android:textColor="@android:color/black"
         android:layout_gravity="start"
+        android:text="my name is H"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 

@@ -10,7 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
 import com.example.myapplication.ui.auth.viewmodel.ValidationViewModel
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.repositori.AuthResponse
 import com.example.myapplication.ui.BaseActivity
+import com.example.myapplication.viewmodel.AuthViewModel
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 
@@ -20,7 +24,7 @@ class RegisterActivity: BaseActivity(), View.OnClickListener, View.OnFocusChange
     private lateinit var  mBinding: AuthActivityRegisterBinding
     private val viewModel: ValidationViewModel by viewModels()
     private lateinit var firebaseAuth:FirebaseAuth
-
+    private val authViewModel: AuthViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //AuthActivityRegisterBinding.inflate dùng để liên kết lớp binding với layout.
@@ -87,45 +91,40 @@ class RegisterActivity: BaseActivity(), View.OnClickListener, View.OnFocusChange
         startActivity(intent)
     }
     private fun handleRegister(){
-        val fullname =   mBinding.editTextTextFullname.text.toString()
+        val fullname = mBinding.editTextTextFullname.text.toString()
         val email= mBinding.editTextTextEmail.text.toString()
-        val password =   mBinding.editTextTextPassword.text.toString()
-        val confirmPassword =   mBinding.editTextTextConfirmPassword.text.toString()
-        var isValid= true
-        if (viewModel.validateFullname(fullname)!= null){
-            val errMessage= viewModel.validateFullname(fullname)
-            Toast.makeText(this, errMessage, Toast.LENGTH_SHORT).show()
-            isValid= false
+        val password =mBinding.editTextTextPassword.text.toString()
+        val confirmPassword = mBinding.editTextTextConfirmPassword.text.toString()
+
+        val fullnameError = viewModel.validateFullname(fullname)
+        val emailError= viewModel.validateEmail(email)
+        val passwordError= viewModel.validatePassword(password)
+        val confirmPasswordError= viewModel.validateConfirmPassword(confirmPassword)
+
+        if (fullnameError!=null ||emailError!=null ||passwordError!=null ||confirmPasswordError!=null ){
+            val errorMessage = fullnameError?:emailError ?:passwordError ?:confirmPasswordError
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+            return
         }
-        if (viewModel.validateEmail(email)!= null){
-            val errMessage= viewModel.validateEmail(email)
-            Toast.makeText(this, errMessage, Toast.LENGTH_SHORT).show()
-            isValid= false
-        }
-        if (viewModel.validatePassword(password)!= null){
-            val errMessage= viewModel.validatePassword(password)
-            Toast.makeText(this, errMessage, Toast.LENGTH_SHORT).show()
-            isValid= false
-        }
-        if (viewModel.validateConfirmPassword(confirmPassword)!= null){
-            val errMessage= viewModel.validateConfirmPassword(confirmPassword)
-            Toast.makeText(this, errMessage, Toast.LENGTH_SHORT).show()
-            isValid= false
-        }
-        if(isValid){
-            if (viewModel.validatePasswordAndConfirmPassword(password,confirmPassword)== null){
-                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
-                    if (it.isSuccessful){
-                        val intent = Intent(this, RegisterActivity::class.java)
-                        startActivity(intent)
-                    }else{
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-                    }
+
+        authViewModel.register(email,password,fullname)
+
+        val observer = object : Observer<AuthResponse.Register?> {
+            override fun onChanged(response: AuthResponse.Register?) {
+                authViewModel.registerResponse.removeObserver(this)
+
+                if (response != null) {
+                    Toast.makeText(this@RegisterActivity, "Đăng ký thành công!", Toast.LENGTH_SHORT).show()
+                    navigateTo(LoginActivity::class.java)
+                } else {
+                    Toast.makeText(this@RegisterActivity, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show()
                 }
-            }else{
-                Toast.makeText(this, "Confirm password doesn't match with password", Toast.LENGTH_SHORT).show()
             }
         }
+        authViewModel.registerResponse.observe(this, observer)
+    }
+    private fun navigateTo(target: Class<*>) {
+        startActivity(Intent(this, target))
     }
 
 }

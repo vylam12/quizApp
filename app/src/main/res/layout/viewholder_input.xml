@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textOtp"
+    android:layout_width="56dp"
+    android:layout_height="56dp"
+    android:textSize="14sp"
+    android:layout_margin="6dp"
+    android:background="@drawable/input_otp_bg"
+    android:inputType="number"
+    android:ems="1"
+    android:textColor="@color/primary1_2"
+    android:textAlignment="center"
+    />
+

@@ -1,4 +1,4 @@
-package com.example.myapplication.backend.model
+package com.example.myapplication.model
 
 import org.threeten.bp.LocalDate
 import javax.persistence.*

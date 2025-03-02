@@ -20,9 +20,10 @@ class ResultActivity :AppCompatActivity() {
         score = getIntent().getIntExtra("score", 0)
         wrongAnswer = getIntent().getIntExtra("wrong", 0)
         totalQuestions = getIntent().getIntExtra("questionSize", 0)
+        totalQuestions = getIntent().getIntExtra("questionSize", 0)
         timeTaken = getIntent().getLongExtra("time", 0)
 
-        mBinding.score.text = "${(score.toFloat() / totalQuestions * 100).toInt()}"
+//        mBinding.score.text = "${(score.toFloat() / totalQuestions * 100).toInt()}"
         mBinding.wrongText.text= wrongAnswer.toString()
         mBinding.totalQuestions.text= totalQuestions.toString()
         mBinding.time.text = "${timeTaken} s" 

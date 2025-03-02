@@ -10,8 +10,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_user_message"
         android:padding="8dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/primary1_2"
         android:layout_gravity="end"
+        android:text="hello how are u"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />

@@ -8,21 +8,19 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.myapplication.R
-import com.example.myapplication.backend.repositori.TranslateResponse
-import com.example.myapplication.backend.services.TranslateService
 import com.example.myapplication.databinding.TestTinNhanBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.example.myapplication.repositori.TranslateResponse
+import com.example.myapplication.viewmodel.TranslateViewModel
 
 class FindActivity:AppCompatActivity(){
     private lateinit var mBinding : TestTinNhanBinding
     private lateinit var tinNhanText:TextView
     private lateinit var translateText:TextView
+    private val translateViewModel: TranslateViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = TestTinNhanBinding.inflate(LayoutInflater.from(this))
@@ -52,28 +50,21 @@ class FindActivity:AppCompatActivity(){
         popup.show()
     }
     private fun translateText(OriginalText:String){
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://libretranslate.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val service= retrofit.create(TranslateService::class.java)
-        val call = service.translate(OriginalText, "en","vi")
+        translateViewModel.translate(OriginalText)
 
-        call.enqueue(object : Callback<TranslateResponse>{
-            override fun onResponse(
-                call: Call<TranslateResponse>,
-                response: Response<TranslateResponse>
-            ) {
-                if (response.isSuccessful){
-                    translateText.text = response.body()?.translatedText  ?: "Lỗi dịch"
+        val observer = object : Observer<TranslateResponse.Translate?> {
+            override fun onChanged(res: TranslateResponse.Translate?) {
+                translateViewModel.translateResponse.removeObserver(this) // Xóa observer đúng cách
+
+                if (res != null) {
+                    print("Nghĩa là : ${res.translation}")
+                    translateText.text = res.translation
+                } else {
+                    translateText.text = "Lỗi dịch: không có phản hồi hợp lệ"
                 }
             }
-
-            override fun onFailure(call: Call<TranslateResponse>, t: Throwable) {
-                translateText.text = "Lỗi API: ${t.message}"
-            }
-        })
-
+        }
+        translateViewModel.translateResponse.observe(this, observer)
     }
     private  fun startVocabularyActivity(word:String){
         val intent = Intent(this, VocabularyActivity::class.java)

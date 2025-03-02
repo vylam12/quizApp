@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đây là trang chính" />
+
+    </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="0dp"
         android:layout_height="wrap_content"

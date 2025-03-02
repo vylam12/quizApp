@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
-import com.example.myapplication.backend.model.Messages
+import com.example.myapplication.model.Messages
 import com.example.myapplication.databinding.ActivityChatBinding
 
 
@@ -30,7 +30,8 @@ class ChatActivity :AppCompatActivity(){
                         senderId = id,
                         content = messageText,
                         isRead = true,
-                    ))
+                    )
+                )
                 adapter.notifyItemInserted(messages.size - 1)
                 mBinding.editTextMessage.text.clear()
                 // Giả lập phản hồi từ người khác

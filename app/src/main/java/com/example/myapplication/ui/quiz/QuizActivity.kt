@@ -1,14 +1,16 @@
 package com.example.myapplication.ui.quiz
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.QuizActivityBinding
 
 class QuizActivity: AppCompatActivity(){
     private lateinit var mBinding:QuizActivityBinding
+    private lateinit var optionQuizAdapter: OptionQuizAdapter
+
     private val question = arrayOf("Question?",
         "Correct?", "Wrong?", "Method?"
         )
@@ -30,84 +32,65 @@ class QuizActivity: AppCompatActivity(){
         mBinding = QuizActivityBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         startTime= System.currentTimeMillis() // lưu thời gian bat dau
+
+        setupRecyclerView()
         displayQuestion()
-        mBinding.buttonOption1.setOnClickListener{
-            checkAnswer(0)
+    }
+
+    private fun setupRecyclerView(){
+        optionQuizAdapter = OptionQuizAdapter(emptyList()){ index, selectedOption, isChecked->
+            handleOptionSelected(index, selectedOption, isChecked)
+
         }
-        mBinding.buttonOption2.setOnClickListener{
-            checkAnswer(1)
+        mBinding.recyclerOptions.layoutManager = LinearLayoutManager(this)
+        mBinding.recyclerOptions.adapter = optionQuizAdapter
+    }
+
+    private fun displayQuestion(){
+        mBinding.questionText.text= question[currentQuestionIndex]
+        mBinding.indexQuestion.text = "${currentQuestionIndex + 1}/${question.size}"
+
+        optionQuizAdapter = OptionQuizAdapter(options[currentQuestionIndex].toList()){
+          index,  selectedOption, isChecked->
+            handleOptionSelected(index, selectedOption, isChecked)
         }
-        mBinding.buttonOption3.setOnClickListener{
-            checkAnswer(2)
-        }
-        mBinding.buttonOption4.setOnClickListener{
-            checkAnswer(3)
+        mBinding.recyclerOptions.adapter = optionQuizAdapter
+    }
+
+    private fun handleOptionSelected(index: Int, selectedOption:String, isChecked:Boolean){
+        val correctIndex = correctAnswers[currentQuestionIndex]
+        val correctOption= options[currentQuestionIndex][correctIndex]
+
+        if (isChecked){
+            if ( selectedOption == correctOption){
+                score++
+                optionQuizAdapter.setAnswerResult(index, true)
+            }else{
+                wrong++
+                optionQuizAdapter.setAnswerResult(index, false) // Đánh dấu sai
+                optionQuizAdapter.setCorrectAnswerIndex(correctIndex)
+            }
         }
 
-    }
-    private fun correctButtonCollors(buttonIndex: Int){
-        when(buttonIndex){
-            0 ->  mBinding.buttonOption1.setBackgroundColor(Color.GREEN)
-            1 ->  mBinding.buttonOption2.setBackgroundColor(Color.GREEN)
-            2 ->  mBinding.buttonOption3.setBackgroundColor(Color.GREEN)
-            3 ->  mBinding.buttonOption4.setBackgroundColor(Color.GREEN)
-        }
-    }
-    private fun wrongButtonColor(buttonIndex: Int){
-        when(buttonIndex){
-            0 ->  mBinding.buttonOption1.setBackgroundColor(Color.RED)
-            1 ->  mBinding.buttonOption2.setBackgroundColor(Color.RED)
-            2 ->  mBinding.buttonOption3.setBackgroundColor(Color.RED)
-            3 ->  mBinding.buttonOption4.setBackgroundColor(Color.RED)
-        }
-    }
-    private fun resetButtonColors(){
-             mBinding.buttonOption1.setBackgroundColor(Color.WHITE)
-             mBinding.buttonOption2.setBackgroundColor(Color.WHITE)
-             mBinding.buttonOption3.setBackgroundColor(Color.WHITE)
-             mBinding.buttonOption4.setBackgroundColor(Color.WHITE)
 
+        if (currentQuestionIndex < question.size - 1) {
+            currentQuestionIndex++
+            mBinding.questionText.postDelayed({ displayQuestion() }, 1000)
+        } else {
+            showResults()
+        }
     }
 
     private fun showResults(){
         val endTime = System.currentTimeMillis()
         val time = (endTime-startTime)/1000
 
-
         Toast.makeText(this, "Your score: $score out of ${question.size} ", Toast.LENGTH_LONG).show()
         val intent =  Intent(this, ResultActivity::class.java)
         intent.putExtra("score", score)
         intent.putExtra("wrong", wrong)
-        intent.putExtra("questionSize", question.size)
+        intent.putExtra("questionSize", question.size.toString())
         intent.putExtra("time", time)
         startActivity(intent)
-    }
-
-    private fun displayQuestion(){
-        mBinding.questionText.text = question[currentQuestionIndex]
-        mBinding.buttonOption1.text = options[currentQuestionIndex][0]
-        mBinding.buttonOption2.text = options[currentQuestionIndex][1]
-        mBinding.buttonOption3.text = options[currentQuestionIndex][2]
-        mBinding.buttonOption4.text = options[currentQuestionIndex][3]
-        resetButtonColors()
-    }
-
-    private fun checkAnswer(selectedAnswerIndex: Int){
-        val correctAnswerIndex = correctAnswers[currentQuestionIndex]
-        if (selectedAnswerIndex == correctAnswerIndex){
-            score++
-            correctButtonCollors(selectedAnswerIndex)
-        }else{
-            wrongButtonColor(selectedAnswerIndex)
-            wrong++
-            correctButtonCollors(correctAnswerIndex)
-        }
-
-        if (currentQuestionIndex < question.size -1){
-            currentQuestionIndex++
-            mBinding.questionText.postDelayed({displayQuestion()}, 1000)
-        }else{
-            showResults()
-        }
     }
 }

@@ -1,26 +1,12 @@
 package com.example.myapplication.ui.findVocabulary
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.R
-import com.example.myapplication.backend.model.Vocabulary
-import com.example.myapplication.backend.repositori.VobularyRepository
-import com.example.myapplication.backend.repositori.WordResponse
-import com.example.myapplication.backend.services.DictionaryService
+import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.databinding.VocabularyActivityBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class VocabularyActivity:AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding:VocabularyActivityBinding
@@ -41,49 +27,55 @@ class VocabularyActivity:AppCompatActivity(), View.OnClickListener {
     }
     override fun onClick(view: View?){
         when(view?.id){
-            R.id.saveVocabulary -> handleSaveVocabulary()
+//            R.id.saveVocabulary -> handleSaveVocabulary()
         }
     }
-    private fun handleSaveVocabulary(){
-        val word = Vocabulary(wordText,meaningText,phoneticText, listOf(exampleText))
-      //  VobularyRepository().saveWord(word)
-        CoroutineScope(Dispatchers.IO).launch {
-            Log.d("Database", "Inserting word: $word")
-            VobularyRepository().saveWord(word)
-            Log.d("Database", "Insert success")
-            runOnUiThread {
-                Toast.makeText(this@VocabularyActivity, "Lưu từ vựng thành công", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
+//    private fun handleSaveVocabulary(){
+//        val word = Vocabulary(wordText,meaningText,phoneticText, listOf(exampleText))
+//      //  VobularyRepository().saveWord(word)
+//        CoroutineScope(Dispatchers.IO).launch {
+//            Log.d("Database", "Inserting word: $word")
+//            VobularyRepository().saveWord(word)
+//            Log.d("Database", "Insert success")
+//            runOnUiThread {
+//                Toast.makeText(this@VocabularyActivity, "Lưu từ vựng thành công", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
     private fun fetchWorDefinition(word:String){
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.dictionaryapi.dev/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val service = retrofit.create(DictionaryService::class.java)
-        service.getWordDenfinition(word).enqueue(object: Callback<List<WordResponse>>{
-            override fun onResponse(
-                call: Call<List<WordResponse>>,
-                response: Response<List<WordResponse>>
-            ) {
-                println("📢 Response Code: ${response.code()}") // In mã phản hồi từ API
-                println("📢 Response Body: ${response.body()}")
-                if (response.isSuccessful&& !response.body().isNullOrEmpty()){
-                    response.body()?.firstOrNull()?.let { wordResponse ->
-                        meaningText = "${wordResponse.meanings.firstOrNull()?.definitions?.firstOrNull()?.definition?:"Không có"}"
-                        phoneticText = "${wordResponse.phonetic?:"Không có"}"
-                        exampleText = "${wordResponse.meanings.firstOrNull()?.definitions?.firstOrNull()?.example?:"Không có"}"
 
-                        showWord()
-                    }
-                } else Toast.makeText(this@VocabularyActivity, "Không tìm thấy từ này", Toast.LENGTH_SHORT).show()
-            }
+        lifecycleScope.launch {
+//            try {
+//                val translateService = RetrofitClient.createService(TranslateService::class.java)
+//                val res = translateService.findVocabulary(FindVocabularyRequest(word))
+//
+//
+//            }
+        }
 
-            override fun onFailure(call: Call<List<WordResponse>>, t: Throwable) {
-                println("Lỗi kết nối API ${t.message}")
-            }
-        })
+
+//        service.getWordDenfinition(word).enqueue(object: Callback<List<WordResponse>>{
+//            override fun onResponse(
+//                call: Call<List<WordResponse>>,
+//                response: Response<List<WordResponse>>
+//            ) {
+//                println("📢 Response Code: ${response.code()}") // In mã phản hồi từ API
+//                println("📢 Response Body: ${response.body()}")
+//                if (response.isSuccessful&& !response.body().isNullOrEmpty()){
+//                    response.body()?.firstOrNull()?.let { wordResponse ->
+//                        meaningText = "${wordResponse.meanings.firstOrNull()?.definitions?.firstOrNull()?.definition?:"Không có"}"
+//                        phoneticText = "${wordResponse.phonetic?:"Không có"}"
+//                        exampleText = "${wordResponse.meanings.firstOrNull()?.definitions?.firstOrNull()?.example?:"Không có"}"
+//
+//                        showWord()
+//                    }
+//                } else Toast.makeText(this@VocabularyActivity, "Không tìm thấy từ này", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onFailure(call: Call<List<WordResponse>>, t: Throwable) {
+//                println("Lỗi kết nối API ${t.message}")
+//            }
+//        })
     }
     private fun showWord(){
         mBinding.wordText.text = wordText

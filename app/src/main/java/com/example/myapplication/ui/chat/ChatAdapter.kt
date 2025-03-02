@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.myapplication.backend.model.Messages
+import com.example.myapplication.model.Messages
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 
