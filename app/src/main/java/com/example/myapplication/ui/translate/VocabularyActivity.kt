@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.myapplication.databinding.VocabularyActivityBinding
+import com.example.myapplication.databinding.TranslateActivityVocabularyBinding
 import kotlinx.coroutines.launch
 
 class VocabularyActivity:AppCompatActivity(), View.OnClickListener {
-    private lateinit var mBinding:VocabularyActivityBinding
+    private lateinit var mBinding:TranslateActivityVocabularyBinding
     private var wordText: String =" "
     private var meaningText: String =" "
     private var phoneticText: String=" "
@@ -17,7 +17,7 @@ class VocabularyActivity:AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = VocabularyActivityBinding.inflate(LayoutInflater.from(this))
+        mBinding = TranslateActivityVocabularyBinding.inflate(LayoutInflater.from(this))
         setContentView(mBinding.root)
         val word = intent.getStringExtra("WORD")?:return
         wordText = word
