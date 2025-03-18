@@ -16,10 +16,10 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:maxLength="1"
-            android:textSelectHandle="@color/primary1_2"
+            android:textSelectHandle="@color/md_theme_primary"
             tools:ignore="TouchTargetSizeCheck"
             android:inputType="number"
-            android:textColor="@color/primary1_2"
+            android:textColor="@color/md_theme_primary"
             android:padding="5dp"
          />
 </com.google.android.material.textfield.TextInputLayout>

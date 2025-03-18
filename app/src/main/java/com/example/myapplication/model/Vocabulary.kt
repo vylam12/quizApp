@@ -2,10 +2,22 @@ package com.example.myapplication.model
 
 data class Vocabulary(
     val word:String,
-    val phonetic:String? = null,
+    val phonetics:List<Phonetic>,
     val meanings:List<Meaning>,
+    val quizAttempts:Int,
+    val correctAnswers:Int,
     val createdAt: String,
     val updatedAt: String
+)
+data class Phonetic(
+    val text: String,
+    val audio: String,
+    val type: String? = null,
+    val license: License = License()
+)
+data class License(
+    val name: String = "Không có",
+    val url: String = "Không có"
 )
 data class Meaning(
     val type: String,

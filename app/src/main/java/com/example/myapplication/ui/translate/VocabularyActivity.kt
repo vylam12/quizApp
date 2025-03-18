@@ -1,86 +1,90 @@
-package com.example.myapplication.ui.findVocabulary
+package com.example.myapplication.ui.translate
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageButton
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.R
 import com.example.myapplication.databinding.TranslateActivityVocabularyBinding
-import kotlinx.coroutines.launch
+import com.example.myapplication.model.Vocabulary
+import com.example.myapplication.viewmodel.TranslateViewModel
+import com.example.myapplication.viewmodel.UserViewModel
 
 class VocabularyActivity:AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding:TranslateActivityVocabularyBinding
-    private var wordText: String =" "
-    private var meaningText: String =" "
-    private var phoneticText: String=" "
-    private var exampleText: String=" "
+    private val translateViewModel: TranslateViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
+
+    private var isBookmarked: Boolean = false
+    private var currentVocabulary: Vocabulary? = null
+    private var currentUserId: String = ""
+    private var savedVocabularyId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = TranslateActivityVocabularyBinding.inflate(LayoutInflater.from(this))
         setContentView(mBinding.root)
-        val word = intent.getStringExtra("WORD")?:return
-        wordText = word
-        fetchWorDefinition(word)
-        mBinding.saveVocabulary.setOnClickListener(this)
 
+        val word = intent.getStringExtra("WORD")?:return
+        val wordText = mBinding.wordText
+        val rvPhonetics = mBinding.rvPhonetics
+        val rvMeaning = mBinding.rvMeanings
+        val saveVocabularyButton = mBinding.saveVocabulary
+        rvMeaning.layoutManager = LinearLayoutManager(this)
+        rvPhonetics.layoutManager = LinearLayoutManager(this)
+
+        wordText.text = word
+
+        userViewModel.userId.observe(this) { userId ->
+            if (userId.isNotEmpty()) {
+                currentUserId = userId
+                translateViewModel.findVocabulary(userId,word)
+            }
+        }
+        translateViewModel.findVocabularyResponse.observe(this){res->
+            Log.d("VocabularyActivity", "Response: $res")
+            val vocabulary = res?.newWord
+            val userSaved = res?.userSaved
+
+            currentVocabulary = vocabulary
+            isBookmarked = userSaved != null
+            savedVocabularyId = userSaved
+            if (isBookmarked) {
+                saveVocabularyButton.setImageResource(R.drawable.ic_bookmark_full)
+            }else{
+                saveVocabularyButton.setImageResource(R.drawable.ic_bookmark)
+            }
+            if (vocabulary != null) {
+                rvPhonetics.adapter = PhoneticAdapter(vocabulary.phonetics)
+                rvMeaning.adapter = MeaningAdapter(vocabulary.meanings)
+            }
+        }
+        mBinding.saveVocabulary.setOnClickListener(this)
     }
     override fun onClick(view: View?){
         when(view?.id){
-//            R.id.saveVocabulary -> handleSaveVocabulary()
+           R.id.saveVocabulary -> handleSaveVocabulary()
         }
     }
-//    private fun handleSaveVocabulary(){
-//        val word = Vocabulary(wordText,meaningText,phoneticText, listOf(exampleText))
-//      //  VobularyRepository().saveWord(word)
-//        CoroutineScope(Dispatchers.IO).launch {
-//            Log.d("Database", "Inserting word: $word")
-//            VobularyRepository().saveWord(word)
-//            Log.d("Database", "Insert success")
-//            runOnUiThread {
-//                Toast.makeText(this@VocabularyActivity, "Lưu từ vựng thành công", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-    private fun fetchWorDefinition(word:String){
-
-        lifecycleScope.launch {
-//            try {
-//                val translateService = RetrofitClient.createService(TranslateService::class.java)
-//                val res = translateService.findVocabulary(FindVocabularyRequest(word))
-//
-//
-//            }
+    private fun handleSaveVocabulary(){
+        val saveVocabularyButton: ImageButton = mBinding.saveVocabulary
+        if (isBookmarked){
+            savedVocabularyId?.let { id ->
+                translateViewModel.deleteVocabulary(id)
+            }
+            saveVocabularyButton.setImageResource(R.drawable.ic_bookmark)
+            isBookmarked = false
+            savedVocabularyId = null
+        }else{
+            currentVocabulary?.let { vocab ->
+                translateViewModel.saveVocabulary(currentUserId, vocab)
+                saveVocabularyButton.setImageResource(R.drawable.ic_bookmark_full)
+                isBookmarked = true
+            }
         }
-
-
-//        service.getWordDenfinition(word).enqueue(object: Callback<List<WordResponse>>{
-//            override fun onResponse(
-//                call: Call<List<WordResponse>>,
-//                response: Response<List<WordResponse>>
-//            ) {
-//                println("📢 Response Code: ${response.code()}") // In mã phản hồi từ API
-//                println("📢 Response Body: ${response.body()}")
-//                if (response.isSuccessful&& !response.body().isNullOrEmpty()){
-//                    response.body()?.firstOrNull()?.let { wordResponse ->
-//                        meaningText = "${wordResponse.meanings.firstOrNull()?.definitions?.firstOrNull()?.definition?:"Không có"}"
-//                        phoneticText = "${wordResponse.phonetic?:"Không có"}"
-//                        exampleText = "${wordResponse.meanings.firstOrNull()?.definitions?.firstOrNull()?.example?:"Không có"}"
-//
-//                        showWord()
-//                    }
-//                } else Toast.makeText(this@VocabularyActivity, "Không tìm thấy từ này", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onFailure(call: Call<List<WordResponse>>, t: Throwable) {
-//                println("Lỗi kết nối API ${t.message}")
-//            }
-//        })
-    }
-    private fun showWord(){
-        mBinding.wordText.text = wordText
-        mBinding.meaningText.text = meaningText
-        mBinding.phoneticText.text = phoneticText
-        mBinding.exampleText.text = exampleText
     }
 }

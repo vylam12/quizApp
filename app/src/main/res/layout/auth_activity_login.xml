@@ -38,7 +38,7 @@
             android:layout_marginBottom="80dp"
             android:text="@string/describe_login"
             android:textAlignment="center"
-            android:textColor="@color/secondary_800"
+            android:textColor="@color/md_theme_outline"
             android:textSize="14sp" />
 
         <TextView
@@ -63,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="57dp"
                     android:hint="@string/input_gmail"
-                    android:textColor="@color/black"
+                    android:textColor="@color/md_theme_onSurface"
                     android:inputType="textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -90,7 +90,7 @@
                 android:layout_height="57dp"
                 android:layout_marginBottom="16dp"
                 android:hint="@string/input_password"
-                android:textColor="@color/black"
+                android:textColor="@color/md_theme_onSurface"
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -101,14 +101,15 @@
 
             <CheckBox
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/string_remember"
-                android:textColor="@color/secondary_700"
+                android:textColor="@color/md_theme_onSurface"
                 android:textSize="13sp" />
 
             <TextView

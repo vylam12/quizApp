@@ -4,7 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="20dp">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        android:backgroundTint="@color/md_theme_primaryContainer"
+        android:progressTint="@color/md_theme_primaryContainer"/>
+
     <LinearLayout
+        android:id="@+id/contentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primary1_1"
@@ -44,6 +58,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,8 +74,6 @@
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="In what year did the United States
-                    host the FIFA World Cup for the first time?"
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="45dp"

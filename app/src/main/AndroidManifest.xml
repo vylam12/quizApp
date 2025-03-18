@@ -35,19 +35,20 @@
 
         <activity android:name=".ui.quiz.QuizActivity"
             android:exported="true"/>
+        <activity android:name=".ui.chat.CreateChatActivity"
+            android:exported="true"/>
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
         </activity>
-
+        <activity
+            android:name=".ui.chat.ChatActivity"
+            android:exported="true"/>
         <activity
             android:name=".ui.quiz.ResultActivity"
             android:exported="true"/>
         <activity
-            android:name=".ui.findVocabulary.FindActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".ui.findVocabulary.VocabularyActivity"
+            android:name=".ui.translate.VocabularyActivity"
             android:exported="true"/>
         <activity
             android:name=".ui.forgotPassword.CheckEmailActivity"

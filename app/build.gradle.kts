@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
     id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 val secretsPropertiesFiel = rootProject.file("secrets.properties")
 val secretsProperties =  Properties()
@@ -21,20 +22,15 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "MONGO_URI", "\"${secretsProperties["MONGO_URI"].toString()}\"")
     }
 
     buildTypes {
-        debug {
-            buildConfigField("String", "MONGO_URI", "\"mongodb+srv://root123:1212003@quizapp.lx5nz.mongodb.net/?retryWrites=true&w=majority&appName=quizapp\"")
-        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "MONGO_URI", "\"mongodb+srv://root123:1212003@quizapp.lx5nz.mongodb.net/?retryWrites=true&w=majority&appName=quizapp\"")
         }
     }
     compileOptions {
@@ -82,6 +78,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.core.splashscreen)
     implementation(platform(libs.firebase.bom))
+    implementation ("com.google.firebase:firebase-messaging:23.3.1")
     implementation(libs.firebase.analytics)
     implementation("com.google.android.gms:play-services-auth:21.3.0")
 
@@ -110,9 +107,9 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive:1.6.4")
 
-
     implementation("org.litote.kmongo:kmongo:4.9.0")
     implementation("org.litote.kmongo:kmongo-coroutine:4.9.0")
-
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 }
 

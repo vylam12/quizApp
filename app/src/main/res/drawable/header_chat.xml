@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-</selector>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="360"
+                android:startColor="@color/md_theme_primary"
+                android:endColor="@color/md_theme_primaryContainer"
+                android:type="linear"/>
+        </shape>
+    </item>
+</layer-list>

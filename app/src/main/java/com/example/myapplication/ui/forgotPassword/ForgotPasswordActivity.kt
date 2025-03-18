@@ -7,18 +7,18 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
-import com.example.myapplication.databinding.ForgotPasswordActivityBinding
-import com.example.myapplication.ui.auth.viewmodel.ValidationViewModel
+import com.example.myapplication.databinding.AuthForgotPasswordActivityBinding
+import com.example.myapplication.viewmodel.ValidationViewModel
 import com.example.myapplication.viewmodel.AuthViewModel
 
 class ForgotPasswordActivity :AppCompatActivity() ,View.OnFocusChangeListener, View.OnClickListener{
-    private lateinit var mBinding: ForgotPasswordActivityBinding
+    private lateinit var mBinding: AuthForgotPasswordActivityBinding
     private val viewModel: ValidationViewModel by viewModels()
     val authViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ForgotPasswordActivityBinding.inflate(layoutInflater)
+        mBinding = AuthForgotPasswordActivityBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
         mBinding.editTextTextEmailAddress.onFocusChangeListener = this

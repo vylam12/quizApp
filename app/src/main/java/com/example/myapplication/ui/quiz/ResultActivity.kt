@@ -2,10 +2,10 @@ package com.example.myapplication.ui.quiz
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.databinding.QuizResultActivityBinding
+import com.example.myapplication.databinding.QuizActivityResultBinding
 
 class ResultActivity :AppCompatActivity() {
-    private lateinit var mBinding:QuizResultActivityBinding
+    private lateinit var mBinding:QuizActivityResultBinding
     private var timeTaken: Long = 0
     private var totalQuestions :Int =0
     private var correctAnswer:Int =0
@@ -14,14 +14,14 @@ class ResultActivity :AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = QuizResultActivityBinding.inflate(layoutInflater)
+        mBinding = QuizActivityResultBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        score = getIntent().getIntExtra("score", 0)
-        wrongAnswer = getIntent().getIntExtra("wrong", 0)
-        totalQuestions = getIntent().getIntExtra("questionSize", 0)
-        totalQuestions = getIntent().getIntExtra("questionSize", 0)
-        timeTaken = getIntent().getLongExtra("time", 0)
+        score = intent.getIntExtra("score", 0)
+        wrongAnswer = intent.getIntExtra("wrong", 0)
+        totalQuestions = intent.getIntExtra("questionSize", 0)
+        totalQuestions = intent.getIntExtra("questionSize", 0)
+        timeTaken = intent.getLongExtra("time", 0)
 
 //        mBinding.score.text = "${(score.toFloat() / totalQuestions * 100).toInt()}"
         mBinding.wrongText.text= wrongAnswer.toString()

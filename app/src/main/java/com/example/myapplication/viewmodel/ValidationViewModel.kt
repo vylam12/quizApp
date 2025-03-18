@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.auth.viewmodel
+package com.example.myapplication.viewmodel
 
 import androidx.lifecycle.ViewModel
 import android.util.Patterns

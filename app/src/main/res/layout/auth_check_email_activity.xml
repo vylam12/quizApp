@@ -15,7 +15,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginTop="60dp"
             app:cardCornerRadius="50dp"
-            android:backgroundTint="@color/grey"
+            android:backgroundTint="@color/md_theme_secondaryContainer"
             >
 
             <ImageView
@@ -33,7 +33,7 @@
             android:layout_marginStart="25dp"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/primary1_2"
+            android:textColor="@color/md_theme_onSurface"
             android:text="Check your email" />
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginBottom="38dp"
             android:textSize="16sp"
-            android:textColor="@color/secondary_500"
+            android:textColor="@color/md_theme_outline"
             android:text="We sent a reset link to contact@dscode...com
                 enter 5 digit code that mentioned in the email" />
         <androidx.recyclerview.widget.RecyclerView
@@ -58,7 +58,7 @@
             android:id="@+id/verifyBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/md_theme_onPrimary"
             android:paddingEnd="120dp"
             android:paddingStart="120dp"
             android:layout_marginTop="26dp"

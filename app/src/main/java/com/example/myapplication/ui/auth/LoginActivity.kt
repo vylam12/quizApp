@@ -11,24 +11,21 @@ import androidx.activity.viewModels
 import com.example.myapplication.R
 import com.example.myapplication.databinding.AuthActivityLoginBinding
 import com.example.myapplication.ui.BaseActivity
-import com.example.myapplication.ui.auth.viewmodel.ValidationViewModel
+import com.example.myapplication.viewmodel.ValidationViewModel
 import com.example.myapplication.ui.main.MainActivity
 import com.example.myapplication.viewmodel.AuthViewModel
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.example.myapplication.viewmodel.UserViewModel
+import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-
+import com.google.firebase.auth.*
 
 class LoginActivity: BaseActivity(), View.OnClickListener, View.OnFocusChangeListener , View.OnKeyListener {
 
     private lateinit var  mBinding: AuthActivityLoginBinding
     private val viewModel: ValidationViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     companion object{
@@ -109,16 +106,26 @@ class LoginActivity: BaseActivity(), View.OnClickListener, View.OnFocusChangeLis
             Toast.makeText(this, passError, Toast.LENGTH_SHORT).show()
             return
         }
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
-            if (it.isSuccessful){
-               firebaseAuth.currentUser?.getIdToken(true)
-                   ?.addOnSuccessListener { result->
-                       sendTokenToServer(result.token!!)
-                   }
-            }else{
-                Toast.makeText(this,"Login fail: ${it.exception.toString()}" , Toast.LENGTH_SHORT).show()
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    firebaseAuth.currentUser?.getIdToken(true)
+                        ?.addOnSuccessListener { result ->
+                            sendTokenToServer(result.token!!)
+                        }
+                } else {
+                    val errorMessage = when (task.exception) {
+                        is FirebaseAuthInvalidUserException -> "Tài khoản không tồn tại!"
+                        is FirebaseAuthInvalidCredentialsException -> "Sai mật khẩu!"
+                        is FirebaseAuthUserCollisionException -> "Tài khoản đã tồn tại!"
+                        is FirebaseAuthWeakPasswordException -> "Mật khẩu quá yếu!"
+                        is FirebaseAuthRecentLoginRequiredException -> "Yêu cầu đăng nhập lại!"
+                        else -> "Đăng nhập thất bại: ${task.exception?.localizedMessage}"
+                    }
+                    Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                }
             }
-        }
+
     }
 
     private fun sendTokenToServer(token:String){
@@ -127,6 +134,7 @@ class LoginActivity: BaseActivity(), View.OnClickListener, View.OnFocusChangeLis
         authViewModel.loginResponse.observe(this) { res ->
             authViewModel.loginResponse.removeObservers(this)
             if (res != null) {
+                userViewModel.getUserFCMToken(res.user.id)
                 Toast.makeText(this, "Login thành công!", Toast.LENGTH_SHORT).show()
                 navigateTo(MainActivity::class.java)
             } else {

@@ -3,16 +3,16 @@ package com.example.myapplication.ui.forgotPassword
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.myapplication.databinding.CheckEmailActivityBinding
+import com.example.myapplication.databinding.AuthCheckEmailActivityBinding
 
 class CheckEmailActivity :AppCompatActivity(){
-    private lateinit var mBinding:CheckEmailActivityBinding
+    private lateinit var mBinding:AuthCheckEmailActivityBinding
     private lateinit var forgotPasswordAdapter: CheckEmailAdapter
     private val otpLength = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = CheckEmailActivityBinding.inflate(layoutInflater)
+        mBinding = AuthCheckEmailActivityBinding.inflate(layoutInflater)
 
         setContentView(mBinding.root)
         setupRecyclerView()

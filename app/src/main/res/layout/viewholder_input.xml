@@ -8,7 +8,7 @@
     android:background="@drawable/input_otp_bg"
     android:inputType="number"
     android:ems="1"
-    android:textColor="@color/primary1_2"
+    android:textColor="@color/md_theme_primary"
     android:textAlignment="center"
     />
 

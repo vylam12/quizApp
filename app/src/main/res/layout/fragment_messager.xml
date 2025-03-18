@@ -3,12 +3,159 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Messager">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.MessagerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/header_chat"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Chats"
+                    android:textColor="@color/md_theme_onPrimaryContainer"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            <SearchView
+                android:id="@+id/searchChat"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:searchHintIcon="@drawable/ic_search"
+                android:background="@drawable/input_otp_bg" />
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            style="?android:attr/progressBarStyleLarge"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewNoMessage"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:contentDescription="No message"
+                    android:src="@drawable/img_no_message" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="No message yet!"
+                    android:textColor="@android:color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="Add message or keep discovering new frequencies"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewNoInternet"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:contentDescription="No internet"
+                    android:src="@drawable/img_no_internet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="No internet yet!"
+                    android:textColor="@android:color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="Add message or keep discovering new frequencies"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerMessager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:overScrollMode="never"
+            android:nestedScrollingEnabled="false"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/btn_new_message"
+            app:layout_constraintTop_toBottomOf="@id/searchChat" />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_new_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="650dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="100dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="New Message"
+        android:src="@drawable/ic_add_message"
+        app:backgroundTint="@color/md_theme_primaryContainer" />
 </FrameLayout>

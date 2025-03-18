@@ -45,12 +45,12 @@ class OptionQuizAdapter(
         when{
             selectedAnswerIndex == position && isCorrectAnswer == true->{
                 holder.LinearLayout.setBackgroundResource(R.drawable.true_option_bg)
-                holder.textOption.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.primary1_2))
+                holder.textOption.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.md_theme_onSecondaryContainer))
                 holder.checkBox.isEnabled = true
             }
             selectedAnswerIndex == position && isCorrectAnswer == false->{
                 holder.LinearLayout.setBackgroundResource(R.drawable.false_option_bg)
-                holder.textOption.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.secondary_1))
+                holder.textOption.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.md_theme_onErrorContainer))
                 holder.checkBox.isEnabled = false
             }
             correctAnswerIndex == position -> {

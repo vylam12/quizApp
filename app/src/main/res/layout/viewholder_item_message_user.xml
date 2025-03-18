@@ -1,21 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_width="match_parent">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/itemMessageUser"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_user_message"
-        android:padding="8dp"
-        android:paddingStart="12dp"
-        android:textColor="@color/white"
         android:layout_gravity="end"
-        android:text="hello how are u"
+        android:background="@drawable/bg_user_message"
+        android:orientation="vertical"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-    />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/itemMessageUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:baselineAligned="false"
+            android:text="hello how are u"
+            android:textColor="@color/md_theme_onPrimaryContainer"
+            android:textIsSelectable="true" />
+
+        <View
+            android:id="@+id/dividerUserView"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginVertical="4dp"
+            android:background="@drawable/dashed_line"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/itemMessageTranslation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Xin chào, bạn khỏe không?"
+            android:textColor="@color/md_theme_onPrimaryContainer"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
 </LinearLayout>

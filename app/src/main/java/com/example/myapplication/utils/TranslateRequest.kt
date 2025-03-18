@@ -1,14 +1,17 @@
 package com.example.myapplication.utils
 
-import com.example.myapplication.model.Meaning
+import com.example.myapplication.model.Vocabulary
 
 data class FindVocabularyRequest(
+    val userId: String,
     val word: String
 )
+data class DeleteVocabularyRequest(
+    val idUserVocabulary: String
+)
 data class SaveVocabularyRequest(
-    val word: String,
-    val phonetic:String? = null,
-    val meanings: List<Meaning>
+    val userId: String,
+    val vocabulary:Vocabulary
 )
 data class TranslateRequest(
     val text: String

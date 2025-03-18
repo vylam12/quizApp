@@ -6,7 +6,7 @@
 
     <!-- Vòng tròn nền -->
     <path
-        android:fillColor="@color/primary1_2"
+        android:fillColor="@color/md_theme_primaryContainer"
         android:pathData="M24,2A22,22 0 1,1 2,24A22,22 0 0,1 24,2Z" />
 
     <!-- Dấu X (Close) với góc bo tròn -->

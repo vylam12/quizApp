@@ -26,14 +26,14 @@
             android:layout_gravity="center"
             android:layout_marginBottom="12dp"
             android:textStyle="bold"
-            android:textColor="@color/primary1_2"
+            android:textColor="@color/md_theme_primary"
             android:text="Quiz Completed" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="312dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColor"
+            android:textColor="@color/md_theme_onSecondaryContainer"
             android:textSize="20dp"
             android:layout_gravity="center"
             android:textAlignment="center"
@@ -71,7 +71,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="35 Minutes"
-                    android:textColor="@color/primary1_2"
+                    android:textColor="@color/md_theme_primaryContainer"
                     android:textSize="17sp" />
             </LinearLayout>
 
@@ -97,7 +97,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="4 Questions"
-                    android:textColor="@color/primary1_2"
+                    android:textColor="@color/md_theme_primaryContainer"
                     android:textSize="17sp" />
             </LinearLayout>
 
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:text="10 Correct  Answers"
                     android:textSize="18dp"
-                    android:textColor="@color/primary1_2" />
+                    android:textColor="@color/md_theme_primary" />
             </LinearLayout>
 
             <LinearLayout
@@ -149,7 +149,7 @@
                     android:layout_gravity="center"
                     android:text="3 Wrong Answers"
                     android:textSize="18dp"
-                    android:textColor="@color/primary1_2" />
+                    android:textColor="@color/md_theme_primary" />
             </LinearLayout>
         <Button
             android:id="@+id/btnReQuiz"
@@ -173,7 +173,7 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/button_white_bg"
             android:text="HOME"
-            android:textColor="@color/primary1_2"
+            android:textColor="@color/md_theme_primary"
             android:textSize="20sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

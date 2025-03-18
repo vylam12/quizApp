@@ -1,4 +1,5 @@
 package com.example.myapplication.ui.auth
+
 import android.content.Intent
 import android.os.Bundle
 import com.example.myapplication.databinding.AuthActivityRegisterBinding
@@ -6,28 +7,23 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
-import com.example.myapplication.ui.auth.viewmodel.ValidationViewModel
+import com.example.myapplication.viewmodel.ValidationViewModel
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.repositori.AuthResponse
 import com.example.myapplication.ui.BaseActivity
 import com.example.myapplication.viewmodel.AuthViewModel
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 
-class RegisterActivity: BaseActivity(), View.OnClickListener, View.OnFocusChangeListener ,
-    View.OnKeyListener{
-    //tự dong sinh ra từ layout auth_activity_register.xml, thay thế cho findViewById() bằng cách liên kết trực tiêp
+class RegisterActivity: BaseActivity(), View.OnClickListener, View.OnFocusChangeListener, View.OnKeyListener{
     private lateinit var  mBinding: AuthActivityRegisterBinding
     private val viewModel: ValidationViewModel by viewModels()
     private lateinit var firebaseAuth:FirebaseAuth
     private val authViewModel: AuthViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //AuthActivityRegisterBinding.inflate dùng để liên kết lớp binding với layout.
         mBinding= AuthActivityRegisterBinding.inflate(LayoutInflater.from(this))
         setContentView(mBinding.root)
 
