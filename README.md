@@ -74,6 +74,6 @@ Feel free to use it for learning and development purposes.
 
 ## 📬 Contact
 
-**Tác giả:** Trần Lê Thảo Vy
+**Author:** Trần Lê Thảo Vy
 **Email:** lethaovytran7@gmail.com  
 **GitHub:** [@vylam12](https://github.com/vylam12))
