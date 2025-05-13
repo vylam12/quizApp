@@ -61,6 +61,7 @@ Open `RetrofitClient.kt` and update the server URL:
 
 ```kotlin
 const val BASE_URL = "http://your-server-ip:9000/"
+```
 
 ### 4. Run the App
 Click Run in Android Studio to launch the app on your device or emulator.
