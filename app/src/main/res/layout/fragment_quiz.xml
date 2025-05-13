@@ -1,125 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.main.QuizFragment">
-
-
-    <LinearLayout
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
-        android:orientation="vertical">
-        <TextView
+    android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.main.QuizFragment">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:textStyle="bold"
-            android:text="Hi Nam"
-            android:textColor="@color/primary1_2"
-            android:textSize="25sp" />
+            android:orientation="vertical">
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@color/md_theme_primaryContainer">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Great to see you again!"
-            android:textColor="@color/primary1_2"
-            android:layout_marginBottom="10dp"
-            android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Quiz"
+                    android:textColor="@color/md_theme_onPrimaryContainer"
+                    android:textSize="18sp" />
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/textNameUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Hi Nam"
+                android:textColor="@color/md_theme_primary"
+                android:layout_marginStart="10dp"
+                android:textSize="25sp" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/primary1_3"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="14dp"
-            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Great to see you again!"
+                android:textColor="@color/md_theme_primary"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp" />
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/md_theme_secondaryContainer"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView30"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="QUIZ"
+                            android:layout_marginBottom="6dp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/md_theme_primary"
+                            android:textSize="16sp"
+                           android:fontFamily="@font/poppins_bold"/>
+
+                        <TextView
+                            android:id="@+id/quizLeght"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text=""
+                            android:fontFamily="@font/poppins_regular"
+                            android:textColor="@color/md_theme_primary"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/md_theme_primary"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"/>
+                    <LinearLayout
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/textView31"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="POINTS"
+                            android:layout_marginBottom="6dp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/md_theme_primary"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/poppins_bold" />
+
+                        <TextView
+                            android:id="@+id/pointTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text=""
+                            android:textColor="@color/md_theme_primary" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Learn vocabulary with flashcard"
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_primary"
+                android:layout_marginStart="10dp"
+                android:textSize="15sp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnLearnFLC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_margin="10dp"
+                android:drawablePadding="8dp"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_background"
+                android:enabled="false"
+                android:text="Start practice" />
+
+
+            <TextView
+                android:id="@+id/textFlashcardHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add the vocabulary you want to learn to your favorites list, minimum 6 words"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/md_theme_error"
+                android:textSize="14sp"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_primary"
+                android:layout_marginStart="10dp"
+                android:textSize="15sp"
+                android:text="Review your favorite vocabulary with Flashcards" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_flashcard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:background="@drawable/btn_background"
+                android:enabled="false"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Start review" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textView30"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="QUIZ"
-                        android:layout_marginBottom="6dp"
-                        android:layout_gravity="center"
-                        android:textColor="@color/primary1_2"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Practice with Quiz"
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_primary"
+                android:layout_marginStart="10dp"
+                android:textSize="15sp" />
 
-                    <TextView
-                        android:id="@+id/textView28"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="2"
-                        android:textColor="@color/primary1_2"
-                        android:textSize="14sp" />
-                </LinearLayout>
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/primary1_2"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/textView31"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="POINTS"
-                        android:layout_marginBottom="6dp"
-                        android:layout_gravity="center"
-                        android:textColor="@color/primary1_2"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/textView29"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textColor="@color/primary1_2"
-                        android:text="1500" />
-                </LinearLayout>
 
-            </LinearLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_startQuiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_margin="10dp"
+                android:enabled="false"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_background"
+                android:text="Start practice"  />
+            <TextView
+                android:id="@+id/textQuizHistoryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quiz History"
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_primary"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:textSize="15sp" />
 
-        </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Practice more"
-            android:textStyle="bold"
-            android:textColor="@color/primary1_2"
-            android:textSize="15sp" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_startQuiz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Start practice" />
-
-    </LinearLayout>
-</FrameLayout>
+    </FrameLayout>

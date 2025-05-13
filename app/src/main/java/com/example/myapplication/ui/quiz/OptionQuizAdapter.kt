@@ -3,7 +3,6 @@ package com.example.myapplication.ui.quiz
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -26,7 +25,6 @@ class OptionQuizAdapter(
 
     inner class OptionViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
         val textOption : TextView = itemView.findViewById(R.id.textOption)
-        val checkBox : CheckBox = itemView.findViewById(R.id.checkBox)
         val LinearLayout: LinearLayout = itemView.findViewById(R.id.linear1)
     }
 
@@ -40,31 +38,26 @@ class OptionQuizAdapter(
       val option = options[position]
         holder.textOption.text = option
 
-        holder.checkBox.setOnCheckedChangeListener(null)
-        holder.checkBox.isChecked = (selectedAnswerIndex == position)
         when{
             selectedAnswerIndex == position && isCorrectAnswer == true->{
                 holder.LinearLayout.setBackgroundResource(R.drawable.true_option_bg)
                 holder.textOption.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.md_theme_onSecondaryContainer))
-                holder.checkBox.isEnabled = true
+
             }
             selectedAnswerIndex == position && isCorrectAnswer == false->{
                 holder.LinearLayout.setBackgroundResource(R.drawable.false_option_bg)
                 holder.textOption.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.md_theme_onErrorContainer))
-                holder.checkBox.isEnabled = false
             }
             correctAnswerIndex == position -> {
                 holder.LinearLayout.setBackgroundResource(R.drawable.true_option_bg)
                 holder.textOption.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.primary1_2))
-                holder.checkBox.isEnabled = true
             }
             else-> {
                 holder.LinearLayout.setBackgroundResource(R.drawable.option_background)
-                holder.checkBox.isEnabled = true
             }
         }
         holder.itemView.setOnClickListener  {
-            if (selectedAnswerIndex == null) { // Chỉ cho phép chọn 1 lần
+            if (selectedAnswerIndex == null) {
                 selectedAnswerIndex = holder.adapterPosition
                 onClick(holder.adapterPosition, option, true)
             }

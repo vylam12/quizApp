@@ -16,10 +16,11 @@ interface AuthService {
     suspend fun register(@Body request: RegisterRequest): Response<AuthResponse.Register>
 
     @POST("login")
-    suspend  fun login(@Body request: LoginRequest): Response<AuthResponse.Login>
+    suspend fun login(@Body request: LoginRequest): Response<AuthResponse.Login>
 
     @POST("forgot-password-otp")
-    suspend fun forgotPassword(@Body request: ForgotPasswordRequest):Response<AuthResponse.ForgotPassword>
+    suspend fun forgotPassword(@Body request: ForgotPasswordRequest)
+    :Response<AuthResponse.ForgotPassword>
 
     @POST("verify-otp")
     suspend fun verifyOTP(@Body request: VerifyOTPRequest): Response<AuthResponse.VerifyOTP>

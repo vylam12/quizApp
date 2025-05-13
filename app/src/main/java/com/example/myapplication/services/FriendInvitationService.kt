@@ -3,11 +3,9 @@ package com.example.myapplication.services
 import com.example.myapplication.repositori.FriendInvitationResponse
 import com.example.myapplication.utils.AcceptFriendInvitedRequest
 import com.example.myapplication.utils.FriendInvitedRequest
+import com.example.myapplication.utils.UnFriendRequest
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface FriendInvitationService {
     @POST("friend-invited")
@@ -15,6 +13,10 @@ interface FriendInvitationService {
 
     @POST("accept-friend-invited")
     suspend fun acceptFriendInvited(@Body request: AcceptFriendInvitedRequest): Response<FriendInvitationResponse.AcceptFriendInvited>
+
+
+    @POST("unfriend")
+    suspend fun unFriend(@Body request: UnFriendRequest): Response<FriendInvitationResponse.UnfriendInvited>
 
     @GET("get-friend/{userId}")
     suspend fun getFriend(@Path("userId") userId: String): Response<FriendInvitationResponse.GetFriend>

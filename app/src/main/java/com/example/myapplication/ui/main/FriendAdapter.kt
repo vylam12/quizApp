@@ -1,22 +1,22 @@
 package com.example.myapplication.ui.main
 
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.*
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.model.FriendInvitedWithSender
 import com.example.myapplication.model.User
 import com.example.myapplication.viewmodel.FriendsViewModel
+import com.google.android.material.imageview.ShapeableImageView
 
 class FriendAdapter(
     private var friends: List<Any>,
     private var isFriendList :Boolean,
-    private val friendsViewModel: FriendsViewModel
+    private val friendsViewModel: FriendsViewModel,
+    private val onFriendClick: ((User) -> Unit)? = null,
+//    private val onItemClick: ((Vocab) -> Unit)? = null,
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
@@ -54,6 +54,16 @@ class FriendAdapter(
             is FriendsViewHolder ->{
                 if (item is User){
                     holder.name.text = item.fullname
+//                    holder.btnChat.setOnClickListener {
+//                        onItemClick?.invoke(item)
+//                    }
+                    holder.itemView.setOnClickListener {
+                        onFriendClick?.invoke(item)
+                    }
+
+                    Glide.with(holder.avatar.context)
+                        .load(item.avatar)
+                        .into(holder.avatar)
                     Log.d("FriendAdapter", "Hiển thị bạn bè: ${item.fullname}")
                 }
 
@@ -61,12 +71,14 @@ class FriendAdapter(
             is SuggestionViewHolder ->{
                 if (item is FriendInvitedWithSender){
                     holder.name.text = item.senderInfo.fullname
-
+                    Glide.with(holder.avatar.context)
+                        .load(item.senderInfo.avatar)
+                        .into(holder.avatar)
                     holder.btnDeny.setOnClickListener{
-                        handleAcceptFriendInvited(idSender= item.senderId ,idReciver= item.receiverId,status = "declined")
+                        handleAcceptFriendInvited(idSender= item.senderId ,idReciver= item.receiverId,status = "declined", position)
                     }
                     holder.btnAccept.setOnClickListener{
-                        handleAcceptFriendInvited(idSender= item.senderId ,idReciver= item.receiverId,status = "accepted")
+                        handleAcceptFriendInvited(idSender= item.senderId ,idReciver= item.receiverId,status = "accepted", position)
                     }
                 }
             }
@@ -74,12 +86,15 @@ class FriendAdapter(
     }
     override fun getItemCount():  Int = friends.size
 
-    private fun handleAcceptFriendInvited(idSender:String, idReciver: String,status:String){
+    private fun handleAcceptFriendInvited(idSender:String, idReciver: String,status:String,position: Int){
         friendsViewModel.acceptFriendInvited(idSender, idReciver,status)
 
+        friends = friends.toMutableList().apply {
+            removeAt(position)
+        }
+        notifyItemRemoved(position)
     }
     fun updateData(newFriends: List<Any>, isFriendList: Boolean) {
-        Log.d("FriendAdapter", "Cập nhật dữ liệu - Danh sách: $newFriends")
         if (newFriends != this.friends) {
             this.friends = newFriends
             this.isFriendList = isFriendList
@@ -89,11 +104,12 @@ class FriendAdapter(
 
     class FriendsViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         val name: TextView = itemView.findViewById(R.id.nameFriend)
-        val avatar : ImageView =itemView.findViewById(R.id.profileAvatarFriend)
+        val avatar : ShapeableImageView =itemView.findViewById(R.id.profileAvatarFriend)
+//        val btnChat : ImageButton = itemView.findViewById(R.id.btnChat)
     }
     class SuggestionViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         val name: TextView = itemView.findViewById(R.id.nameFriendSG)
-        val avatar: ImageView= itemView.findViewById(R.id.avatarFriendSG)
+        val avatar: ShapeableImageView= itemView.findViewById(R.id.avatarFriendSG)
         val btnAccept: Button = itemView.findViewById(R.id.btnAccept)
         val btnDeny : Button= itemView.findViewById(R.id.btnDeny)
     }

@@ -3,27 +3,27 @@
     <item
         android:id="@+id/bottom_message"
         android:icon="@drawable/ic_chat_bubble"
-        android:iconTint="@color/primary1_2"
+        android:iconTint="@color/md_theme_primary"
         android:title="Message" />
     <item
         android:id="@+id/bottom_friend"
         android:icon="@drawable/ic_friend"
-        android:iconTint="@color/primary1_2"
+        android:iconTint="@color/md_theme_primary"
         android:title="Profile" />
     <item
         android:id="@+id/bottom_save"
         android:icon="@drawable/ic_bookmark"
-        android:iconTint="@color/primary1_2"
+        android:iconTint="@color/md_theme_primary"
         android:title="Save"  />
     <item
         android:id="@+id/bottom_quiz"
         android:icon="@drawable/ic_book"
-        android:iconTint="@color/primary1_2"
+        android:iconTint="@color/md_theme_primary"
         android:title="Quiz" />
     <item
         android:id="@+id/bottom_profile"
         android:icon="@drawable/ic_person"
-        android:iconTint="@color/primary1_2"
+        android:iconTint="@color/md_theme_primary"
         android:title="Profile" />
 
 </menu>

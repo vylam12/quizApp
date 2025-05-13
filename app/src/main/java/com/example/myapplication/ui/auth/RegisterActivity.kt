@@ -2,6 +2,7 @@ package com.example.myapplication.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.example.myapplication.databinding.AuthActivityRegisterBinding
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -36,14 +37,13 @@ class RegisterActivity: BaseActivity(), View.OnClickListener, View.OnFocusChange
 
         mBinding.btnRegister.setOnClickListener(this)
         mBinding.textSignIn.setOnClickListener(this)
-        mBinding.btnGoogle.setOnClickListener(this)
+
     }
-    //kiểm tra các sự kiện nhấn phím nếu cần.
+
     override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
         return false
     }
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
-    //Khi focus thay đổi trên một View:
         if (v!=null){
             when(v.id){
                 R.id.editTextTextFullname->validateField(
@@ -73,7 +73,6 @@ class RegisterActivity: BaseActivity(), View.OnClickListener, View.OnFocusChange
             error= errorMessage
         }
     }
-    //bắt các sự kiện click như click nút Register, Cancel
     override fun onClick(v: View?) {
         if(v!= null){
             when(v.id){
@@ -104,20 +103,18 @@ class RegisterActivity: BaseActivity(), View.OnClickListener, View.OnFocusChange
         }
 
         authViewModel.register(email,password,fullname)
-
-        val observer = object : Observer<AuthResponse.Register?> {
-            override fun onChanged(response: AuthResponse.Register?) {
-                authViewModel.registerResponse.removeObserver(this)
-
-                if (response != null) {
-                    Toast.makeText(this@RegisterActivity, "Đăng ký thành công!", Toast.LENGTH_SHORT).show()
-                    navigateTo(LoginActivity::class.java)
-                } else {
-                    Toast.makeText(this@RegisterActivity, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show()
-                }
+        authViewModel.registerResponse.observe(this){response ->
+            if (response != null) {
+                Log.d("REGISTER_SUCCESS", "User registered: ${response.uid}")
+                Toast.makeText(this@RegisterActivity, "Register success!",
+                    Toast.LENGTH_SHORT).show()
+                navigateTo(LoginActivity::class.java)
+            } else {
+                Log.e("REGISTER_ERROR", "Lỗi từ server, kiểm tra API!")
+                Toast.makeText(this@RegisterActivity,
+                    "Registration failed. Please try again!", Toast.LENGTH_SHORT).show()
             }
         }
-        authViewModel.registerResponse.observe(this, observer)
     }
     private fun navigateTo(target: Class<*>) {
         startActivity(Intent(this, target))

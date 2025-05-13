@@ -26,6 +26,7 @@
 
     <color name="textColor">#434D65</color>
 
+    <color name="ripple_color_send_button">#33000000</color> <!-- màu đen mờ -->
 
 
     <color name="yellow">#F2C216</color>
@@ -63,4 +64,12 @@
     <color name="md_theme_surface">#F9F9FF</color>
     <color name="md_theme_onSurface">#181C22</color>
     <color name="md_theme_outline">#717784</color>
+    <color name="ts">#80000000</color>
+
+    <color name="correctGreen">#C8E6C9</color>
+    <color name="errorRed">#FFCDD2</color>
+    <color name="optionPressedGray">#EEEEEE</color>
+    <color name="green">#388E3C</color>
+
+
 </resources>

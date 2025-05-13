@@ -9,9 +9,7 @@
         android:id="@+id/linearS"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="390dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/linearSearch"
@@ -50,35 +48,34 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerCreateChat"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:visibility="gone" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="vertical">
-
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:padding="8dp"
+            android:scrollbars="vertical" />
         <LinearLayout
             android:id="@+id/userInfoLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:padding="16dp">
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:gravity="bottom"
+            android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/imageView11"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/avatarReceiver"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="15dp"
-                app:srcCompat="@drawable/useravatar" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/useravatar"
+                app:shapeAppearanceOverlay="@style/RoundedImage"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp" />
 
             <TextView
                 android:id="@+id/userName"
@@ -102,12 +99,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:background="@drawable/bottom_navigation_bg"
             android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
             android:padding="8dp">
 
             <EditText
@@ -119,19 +115,21 @@
                 android:hint="Type a message"
                 android:inputType="text"
                 android:padding="8dp"
-                android:textColorHint="@color/md_theme_outline"
                 android:textColor="@color/md_theme_onSurface"
+                android:textColorHint="@color/md_theme_outline"
                 android:textSize="17sp" />
 
             <ImageButton
                 android:id="@+id/buttonSend"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:padding="12dp"
                 android:layout_gravity="center"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/ripple_send_button"
                 android:contentDescription="Send message"
                 app:srcCompat="@drawable/ic_send" />
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

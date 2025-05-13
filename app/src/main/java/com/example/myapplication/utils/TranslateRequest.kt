@@ -9,6 +9,7 @@ data class FindVocabularyRequest(
 data class DeleteVocabularyRequest(
     val idUserVocabulary: String
 )
+
 data class SaveVocabularyRequest(
     val userId: String,
     val vocabulary:Vocabulary
@@ -16,5 +17,8 @@ data class SaveVocabularyRequest(
 data class TranslateRequest(
     val text: String
 )
-
+data class SaveUserVocabularyRequest(
+    val userId: String,
+    val idVocab: String
+)
 

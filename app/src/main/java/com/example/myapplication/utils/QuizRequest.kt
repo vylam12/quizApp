@@ -1,5 +1,7 @@
 package com.example.myapplication.utils
 
+import com.example.myapplication.model.Flashcard
+
 data class updateResultQuizRequest(
     val quizId:String,
     val userId:String,
@@ -12,6 +14,13 @@ data class vocabulary(
     val correctCount: Int,
     val wrongCount: Int
 )
-data class generateQuizRequest (
-    val userId:String
+
+
+data class  FlashcardRequest(
+    val userId: String,
+    val vocabList: List<VocabStatus>
+)
+data class VocabStatus(
+    val vocabularyId: String,
+    val isKnown: Boolean? =null
 )

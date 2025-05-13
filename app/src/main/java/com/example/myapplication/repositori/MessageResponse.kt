@@ -1,13 +1,22 @@
 package com.example.myapplication.repositori
 
-import com.example.myapplication.model.ListChat
-import com.example.myapplication.model.Messages
-
 sealed class MessageResponse {
-    data class  CreateChat (val message:String, val chatId:String ):MessageResponse()
-    data class  SendMessage (val message:String, val newMessage: Messages):MessageResponse()
-    data class  GetMessage (val message:String, val mongoMessages:List<Messages> ):MessageResponse()
-    data class  GetListChat(val listChat: List<ListChat> = emptyList()):MessageResponse()
+    data class  CreateChat (val message:String, val chatId:String, val translatedContent: String ):MessageResponse()
+    data class  SendMessage (val message:String, val translatedContent: String):MessageResponse()
     data class  CheckExistChat ( val chatId:String ):MessageResponse()
-    data class  DeleteChat( val message:String ):MessageResponse()
+    data class SearchChat(
+        val filteredChats: List<FilteredChat>
+    ) : MessageResponse()
+
+    data class FilteredChat(
+        val chatId: String,
+        val participants: List<String>,
+        val matchByMessage: List<MessageMatch>
+    )
+
+    data class MessageMatch(
+        val id: String,
+        val translatedContent: String,
+        val timestamp: String?
+    )
 }

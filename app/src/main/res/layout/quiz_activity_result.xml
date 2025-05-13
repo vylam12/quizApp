@@ -13,7 +13,7 @@
             android:id="@+id/imageView5"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="80dp"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/icon" />
@@ -24,8 +24,8 @@
             android:layout_height="wrap_content"
             android:textSize="38sp"
             android:layout_gravity="center"
+            android:fontFamily="@font/poppins_extrabold"
             android:layout_marginBottom="12dp"
-            android:textStyle="bold"
             android:textColor="@color/md_theme_primary"
             android:text="Quiz Completed" />
 
@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/md_theme_onSecondaryContainer"
             android:textSize="20dp"
+            android:fontFamily="@font/poppins_regular"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:layout_marginBottom="20dp"
@@ -71,6 +72,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="35 Minutes"
+                    android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/md_theme_primaryContainer"
                     android:textSize="17sp" />
             </LinearLayout>
@@ -96,15 +98,13 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1.5"
                     android:gravity="center"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="4 Questions"
                     android:textColor="@color/md_theme_primaryContainer"
                     android:textSize="17sp" />
             </LinearLayout>
 
         </LinearLayout>
-
-
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -125,6 +125,7 @@
                     android:layout_height="wrap_content"
                     android:text="10 Correct  Answers"
                     android:textSize="18dp"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textColor="@color/md_theme_primary" />
             </LinearLayout>
 
@@ -148,6 +149,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="3 Wrong Answers"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textSize="18dp"
                     android:textColor="@color/md_theme_primary" />
             </LinearLayout>
@@ -161,7 +163,8 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/button_color_bg"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_bold"
             android:text="START QUIZ AGAIN" />
 
         <Button
@@ -172,8 +175,9 @@
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/button_white_bg"
+            android:fontFamily="@font/poppins_bold"
             android:text="HOME"
             android:textColor="@color/md_theme_primary"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

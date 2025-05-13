@@ -2,9 +2,7 @@ package com.example.myapplication.viewmodel
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.repositori.AuthResponse
 import com.example.myapplication.services.RetrofitClient.authService
@@ -13,22 +11,22 @@ import com.example.myapplication.utils.LoginRequest
 import com.example.myapplication.utils.RegisterRequest
 import com.example.myapplication.utils.ResetPasswordRequest
 import com.example.myapplication.utils.VerifyOTPRequest
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import com.example.myapplication.utils.Result
+import org.json.JSONObject
 
 class AuthViewModel:ViewModel() {
     private val _loginResponse = MutableLiveData<AuthResponse.Login?>()
     private val _registerResponse = MutableLiveData<AuthResponse.Register?>()
-    private val _forgotPasswordResponse = MutableLiveData<AuthResponse.ForgotPassword?>()
+    private val _forgotPasswordResponse = MutableLiveData<Result<AuthResponse.ForgotPassword?>>()
     private val _verifyOTPResponse = MutableLiveData<AuthResponse.VerifyOTP?>()
     private val _resetPasswordResponse = MutableLiveData<AuthResponse.ResetPassword?>()
 
     val loginResponse: LiveData<AuthResponse.Login?> get()= _loginResponse
     val registerResponse: LiveData<AuthResponse.Register?> get()= _registerResponse
-    val ForgotPasswordResponse: LiveData<AuthResponse.ForgotPassword?> get()= _forgotPasswordResponse
-    val VerifyOTPResponse: LiveData<AuthResponse.VerifyOTP?> get()= _verifyOTPResponse
-    val ResetPasswordResponse: LiveData<AuthResponse.ResetPassword?> get()= _resetPasswordResponse
+    val forgotPasswordResponse: LiveData<Result<AuthResponse.ForgotPassword?>> get()= _forgotPasswordResponse
+    val verifyOTPResponse: LiveData<AuthResponse.VerifyOTP?> get()= _verifyOTPResponse
+    val resetPasswordResponse: LiveData<AuthResponse.ResetPassword?> get()= _resetPasswordResponse
 
     fun register(email:String, password: String, fullname:String){
         viewModelScope.launch {
@@ -76,19 +74,31 @@ class AuthViewModel:ViewModel() {
 
     fun forgotPassword(email:String){
         viewModelScope.launch {
+
+            _forgotPasswordResponse.value = Result.Loading
             try {
                 val res = withContext(Dispatchers.IO){
                     authService.forgotPassword(ForgotPasswordRequest(email))
                 }
                 if (res.isSuccessful){
-                    _forgotPasswordResponse.postValue(res.body())
+                    _forgotPasswordResponse.postValue(Result.Success(res.body()))
                 }else{
-                    Log.e("ForgotViewModel", "Error: ${res.errorBody()?.string()}")
-                    _forgotPasswordResponse.postValue(null)
+
+                    val errorBodyStr = res.errorBody()?.string() ?: "Check email fail"
+                    Log.e("ForgotViewModel", "Error: $errorBodyStr")
+
+
+                    val errorMessage = try {
+                        JSONObject(errorBodyStr).getString("error")
+                    } catch (e: Exception) {
+                        errorBodyStr
+                    }
+
+                    _forgotPasswordResponse.postValue(Result.Error(errorMessage))
                 }
             }catch (e:Exception){
                 Log.e("AuthViewModel", "Forgot password failed: ${e.message}")
-                _forgotPasswordResponse.postValue(null)
+                _forgotPasswordResponse.postValue(Result.Error(e.message ?: "Unknown error"))
             }
         }
     }

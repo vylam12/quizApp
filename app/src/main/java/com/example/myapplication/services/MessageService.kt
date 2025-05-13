@@ -10,6 +10,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MessageService {
     @POST("create-chat")
@@ -18,17 +19,15 @@ interface MessageService {
     @POST("send-message")
     suspend fun sendMessage(@Body request: SendMessageRequest): Response<MessageResponse.SendMessage>
 
-    @GET("get-message/{chatId}")
-    suspend fun getMessage(@Path("chatId") chatId: String): Response<MessageResponse.GetMessage>
-
-    @GET("get-list-chat/{userId}")
-    suspend fun getListChat(@Path("userId") userId: String): Response<MessageResponse.GetListChat>
 
     @POST("check-exist-chat")
     suspend fun checkExistChat(@Body request: CheckExistChatRequest): Response<MessageResponse.CheckExistChat>
+    @GET("search-chat")
+    suspend fun searchChat(
+        @Query("userId") userId: String,
+        @Query("keyword") keyword: String
+    ): Response<MessageResponse.SearchChat>
 
-    @POST("delete-chat")
-    suspend fun deleteChat(@Body request: DeleteRequest): Response<MessageResponse.DeleteChat>
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.myapplication.model
 
 data class Vocabulary(
+    val _id:String,
     val word:String,
     val phonetics:List<Phonetic>,
     val meanings:List<Meaning>,

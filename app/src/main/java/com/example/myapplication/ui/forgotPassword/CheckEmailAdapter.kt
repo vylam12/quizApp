@@ -1,14 +1,10 @@
 package com.example.myapplication.ui.forgotPassword
 
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.text.*
+import android.view.*
 import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-
 
 class CheckEmailAdapter(private val otpLength: Int):
     RecyclerView.Adapter<CheckEmailAdapter.ForgotPasswordViewHolder>(){
@@ -57,18 +53,6 @@ class CheckEmailAdapter(private val otpLength: Int):
                 }
 
             })
-
-//            otpEditText.setOnFocusChangeListener{_, hasFocus->
-//                if (hasFocus){
-//                    otpTextInputLayout.setBackgroundResource(R.drawable.input_otp_color_bg)
-//                } else{
-//                    if(otpValues[position].isNotEmpty()){
-//                        otpTextInputLayout.setBackgroundResource(R.drawable.input_otp_color_bg)
-//                    }else{
-//                        otpTextInputLayout.setBackgroundResource(R.drawable.input_otp_bg)
-//                    }
-//                }
-//            }
 
         }
     }

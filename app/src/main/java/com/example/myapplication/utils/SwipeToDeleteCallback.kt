@@ -32,13 +32,13 @@ class SwipeToDeleteCallback(
         val position = viewHolder.adapterPosition
 
         AlertDialog.Builder(context)
-            .setTitle("Xác nhận xóa")
-            .setMessage("Bạn có chắc chắn muốn xóa cuộc trò chuyện này?")
-            .setPositiveButton("Xóa") { _, _ ->
+            .setTitle("Confirm Delete")
+                .setMessage("Are you sure you want to delete this conversation?")
+            .setPositiveButton("Delete") { _, _ ->
                 onDeleteConfirmed(position) //
                 adapter.removeItem(position)
             }
-            .setNegativeButton("Hủy") { dialog, _ ->
+            .setNegativeButton("Cancel") { dialog, _ ->
                 adapter.notifyItemChanged(position) // Khôi phục item nếu hủy
                 dialog.dismiss()
             }

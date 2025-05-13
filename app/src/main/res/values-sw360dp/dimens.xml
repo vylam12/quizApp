@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="button_height">35dp</dimen>
+    <dimen name="text_size">16sp</dimen>
+
+    <dimen name="text_edit_height">50dp</dimen>
+
+    <dimen name="img_height">90dp</dimen>
+    <dimen name="img_width">90dp</dimen>
+
+    <dimen name="img_no_friend_height">180dp</dimen>
+    <dimen name="img_no_friend_width">180dp</dimen>
+
+    <dimen name="img_gg_height">20dp</dimen>
+    <dimen name="img_gg_width">20dp</dimen>
+    <dimen name="btn_add_messagse_top">460dp</dimen>
+
+    <dimen name="top_80sdp">40dp</dimen>
+
+    <dimen name="_5ssp">4sp</dimen>
+    <dimen name="_8ssp">7sp</dimen>
+    <dimen name="_10ssp">9sp</dimen>
+    <dimen name="_12ssp">11sp</dimen>
+    <dimen name="_13ssp">12sp</dimen>
+    <dimen name="_14ssp">13sp</dimen>
+    <dimen name="_15ssp">14sp</dimen>
+    <dimen name="_16ssp">15sp</dimen>
+    <dimen name="_17ssp">16sp</dimen>
+    <dimen name="_18ssp">17sp</dimen>
+    <dimen name="_20ssp">19sp</dimen>
+    <dimen name="_22ssp">21sp</dimen>
+    <dimen name="_25ssp">24sp</dimen>
+    <dimen name="_30ssp">29sp</dimen>
+    <dimen name="_120ssp">119sp</dimen>
+
+
+    <dimen name="_5sdp">3dp</dimen>
+    <dimen name="_8sdp">4dp</dimen>
+    <dimen name="_12sdp">6dp</dimen>
+    <dimen name="_13sdp">7dp</dimen>
+    <dimen name="_14sdp">7dp</dimen>
+    <dimen name="_10sdp">5dp</dimen>
+    <dimen name="_15sdp">7dp</dimen>
+    <dimen name="_16sdp">8dp</dimen>
+    <dimen name="_17sdp">9dp</dimen>
+    <dimen name="_18sdp">9dp</dimen>
+    <dimen name="_20sdp">10dp</dimen>
+    <dimen name="_24sdp">12dp</dimen>
+    <dimen name="_25sdp">13dp</dimen>
+    <dimen name="_30sdp">15dp</dimen>
+    <dimen name="_36sdp">18dp</dimen>
+    <dimen name="_40sdp">20dp</dimen>
+    <dimen name="_45sdp">23dp</dimen>
+    <dimen name="_50sdp">25dp</dimen>
+    <dimen name="_55sdp">27dp</dimen>
+    <dimen name="_60sdp">30dp</dimen>
+    <dimen name="_61sdp">30.5dp</dimen>
+    <dimen name="_62sdp">31dp</dimen>
+    <dimen name="_63sdp">31.5dp</dimen>
+    <dimen name="_64sdp">32dp</dimen>
+    <dimen name="_65sdp">32.5dp</dimen>
+    <dimen name="_66sdp">33dp</dimen>
+    <dimen name="_67sdp">33.5dp</dimen>
+    <dimen name="_68sdp">34dp</dimen>
+    <dimen name="_69sdp">34.5dp</dimen>
+    <dimen name="_70sdp">35dp</dimen>
+    <dimen name="_71sdp">35.5dp</dimen>
+    <dimen name="_72sdp">36dp</dimen>
+    <dimen name="_73sdp">36.5dp</dimen>
+    <dimen name="_74sdp">37dp</dimen>
+    <dimen name="_75sdp">37.5dp</dimen>
+    <dimen name="_76sdp">38dp</dimen>
+    <dimen name="_77sdp">38.5dp</dimen>
+    <dimen name="_78sdp">39dp</dimen>
+    <dimen name="_79sdp">39.5dp</dimen>
+    <dimen name="_80sdp">40dp</dimen>
+
+
+    <dimen name="_120sdp">60dp</dimen>
+    <dimen name="_650sdp">480dp</dimen>
+</resources>

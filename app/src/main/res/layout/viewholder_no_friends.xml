@@ -6,11 +6,11 @@
     android:orientation="vertical">
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/img_no_friend_width"
+        android:layout_height="@dimen/img_no_friend_height"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         app:srcCompat="@drawable/img_addfriend" />
 
     <TextView
@@ -20,7 +20,7 @@
         android:layout_marginTop="10dp"
         android:text="No friends yet!"
         android:textColor="@color/md_theme_onSurface"
-        android:textSize="22sp"
+        android:textSize="@dimen/_22ssp"
         android:textStyle="bold" />
 
     <TextView
@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:text="Add suggestion or keep discovering new frequencies"
         android:textColor="@color/md_theme_outline"
-        android:textSize="18sp" />
+        android:textSize="@dimen/_18ssp" />
 </LinearLayout>

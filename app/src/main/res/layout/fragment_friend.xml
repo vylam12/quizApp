@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
     tools:context=".ui.main.FriendFragment">
 
     <LinearLayout
@@ -24,22 +25,25 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Friends"
+                android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <SearchView
+                android:textSize="20sp" />
+            <EditText
                 android:id="@+id/searchFriend"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginStart="20dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
                 android:background="@drawable/input_otp_bg"
-                android:hint="Search for a name or email"
-                android:searchHintIcon="@drawable/ic_search">
-
-            </SearchView>
+                android:hint="Search for a name"
+                android:textColor="@color/black"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="16sp"
+                android:drawableStart="@drawable/ic_search"
+                android:imeOptions="actionSearch"
+                android:inputType="text" />
 
         </LinearLayout>
 
@@ -47,6 +51,8 @@
             android:id="@+id/tabLayoutFriend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:tabSelectedTextColor="@color/md_theme_primaryContainer"
             app:tabIndicatorColor="@color/md_theme_primaryContainer"
             app:tabTextColor="@color/md_theme_onSurface">
 
@@ -66,9 +72,26 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerFriend"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:scrollbars="vertical"
             android:padding="16dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:visibility="gone"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading_friend"
+            android:layout_width="270dp"
+            android:layout_height="270dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:visibility="gone"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loading.json"
+            app:lottie_loop="true" />
 
         <include
             android:id="@+id/viewNoFriends"
@@ -79,6 +102,8 @@
             android:id="@+id/viewNoSuggestions"
             layout="@layout/viewholder_no_suggest"
             android:visibility="gone"/>
+
+
     </LinearLayout>
 
 

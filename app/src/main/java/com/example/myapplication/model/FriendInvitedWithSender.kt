@@ -11,5 +11,6 @@ data class FriendInvitedWithSender (
 data class SenderInfo(
     val _id: String,
     val fullname: String,
-    val email: String
+    val email: String,
+    val avatar: String
 )

@@ -3,7 +3,6 @@
     android:id="@+id/linear1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/option_background"
     android:layout_marginStart="23dp"
     android:layout_marginEnd="23dp"
@@ -11,26 +10,18 @@
     android:elevation="7dp"
     android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textOption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginStart="30dp"
-                android:text="1934" />
+        <TextView
+            android:id="@+id/textOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:layout_marginStart="30dp"
+            android:text="" />
 
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="16dp"
-                android:button="@drawable/checkbox_btn"
-                android:gravity="end"
-                android:text=" "
-                tools:ignore="TouchTargetSizeCheck" />
 </LinearLayout>

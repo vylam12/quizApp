@@ -4,25 +4,27 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.R
 import com.example.myapplication.databinding.QuizActivityBinding
 import com.example.myapplication.model.Question
+import com.example.myapplication.utils.UserPreferences
 import com.example.myapplication.utils.vocabulary
 import com.example.myapplication.viewmodel.QuizViewModel
-import com.example.myapplication.viewmodel.UserViewModel
 
 class QuizActivity: AppCompatActivity(){
     private lateinit var mBinding:QuizActivityBinding
     private lateinit var optionQuizAdapter: OptionQuizAdapter
-    private val userViewModel: UserViewModel by viewModels()
     private val quizViewModel: QuizViewModel by viewModels()
+
     private var quizId: String? = null
     private var quizQuestions: List<Question> = emptyList()
-
     private var userId: String? = null
+
     private var currentQuestionIndex = 0
     private var score = 0
     private var wrong =0
@@ -35,23 +37,32 @@ class QuizActivity: AppCompatActivity(){
         super.onCreate(savedInstanceState)
         mBinding = QuizActivityBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-        startTime= System.currentTimeMillis() // lưu thời gian bat dau
+        val btnBack = findViewById<ImageView>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            finish()
+        }
+
+        initData()
+        observeViewModel()
+        setupRecyclerView()
+    }
+
+    private fun initData(){
+        startTime= System.currentTimeMillis()
 
         quizId = intent.getStringExtra("quizId")
-        if (quizId.isNullOrEmpty()) {
-            Toast.makeText(this, "Không tìm thấy Quiz ID!", Toast.LENGTH_SHORT).show()
-            finish()
-            return
-        }
-        mBinding.progressBar.visibility = View.VISIBLE
+
+        userId = UserPreferences.getUserId(this)  ?: ""
+        mBinding.loading.visibility = View.VISIBLE
         mBinding.contentLayout.visibility = View.GONE
 
         quizViewModel.getQuiz(quizId!!)
-        userViewModel.userId.observe(this) { id ->
-            userId = id
-        }
+    }
+
+    private fun observeViewModel(){
         quizViewModel.getQuizResponse.observe(this){res->
-            mBinding.progressBar.visibility = View.GONE
+            mBinding.loading.visibility = View.GONE
+
             if (res != null) {
                 quizQuestions = res.listQuestion
                 mBinding.contentLayout.visibility = View.VISIBLE
@@ -61,9 +72,7 @@ class QuizActivity: AppCompatActivity(){
                 finish()
             }
         }
-        setupRecyclerView()
     }
-
     private fun setupRecyclerView(){
         optionQuizAdapter = OptionQuizAdapter(emptyList()){ index, selectedOption, isChecked->
             handleOptionSelected(index, selectedOption, isChecked)
@@ -74,17 +83,13 @@ class QuizActivity: AppCompatActivity(){
     }
 
     private fun displayQuestion(){
-        if(quizQuestions.isEmpty()){
-            Toast.makeText(this,"Không có câu hỏi để hiển thị",Toast.LENGTH_SHORT).show()
-            return
-        }
-
         val currentQuestion = quizQuestions[currentQuestionIndex]
 
         mBinding.questionText.text= currentQuestion.content
         mBinding.indexQuestion.text ="${currentQuestionIndex + 1}/${quizQuestions.size}"
 
-        optionQuizAdapter = OptionQuizAdapter(currentQuestion.options){ index, selectedOption, isChecked ->
+        optionQuizAdapter = OptionQuizAdapter(currentQuestion.options){
+            index, selectedOption, isChecked ->
             handleOptionSelected(index, selectedOption, isChecked)
         }
         mBinding.recyclerOptions.adapter = optionQuizAdapter
@@ -105,7 +110,7 @@ class QuizActivity: AppCompatActivity(){
                 correctAnswersByVocabulary[vocabId] = correctAnswersByVocabulary.getOrDefault(vocabId,0)+1
             }else{
                 wrong++
-                optionQuizAdapter.setAnswerResult(index, false) // Đánh dấu sai
+                optionQuizAdapter.setAnswerResult(index, false)
                 optionQuizAdapter.setCorrectAnswerIndex(correctIndex)
 
                 wrongAnswersByVocabulary[vocabId] = wrongAnswersByVocabulary.getOrDefault(vocabId, 0) + 1
@@ -131,6 +136,7 @@ class QuizActivity: AppCompatActivity(){
         sendResultsToServer()
 
         val intent =  Intent(this, ResultActivity::class.java)
+        intent.putExtra("quizId", quizId)
         intent.putExtra("score", score)
         intent.putExtra("wrong", wrong)
         intent.putExtra("questionSize", quizQuestions.size.toString())
@@ -138,7 +144,8 @@ class QuizActivity: AppCompatActivity(){
         startActivity(intent)
     }
     private fun sendResultsToServer() {
-        val vocabularyResults = correctAnswersByVocabulary.keys.union(wrongAnswersByVocabulary.keys).map { vocabId ->
+        val vocabularyResults = correctAnswersByVocabulary.keys.union(wrongAnswersByVocabulary.keys)
+            .map { vocabId ->
             vocabulary(
                 vocabId,
                 correctAnswersByVocabulary.getOrDefault(vocabId, 0),

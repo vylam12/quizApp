@@ -5,12 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
     android:orientation="horizontal">
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileAvatarFriend"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/useravatar"
+        app:strokeWidth="2dp"
         android:layout_gravity="center"
-        android:background="@drawable/useravatar" />
+        app:strokeColor="@color/white"
+        app:shapeAppearanceOverlay="@style/RoundedImage" />
 
     <TextView
         android:id="@+id/nameFriend"
@@ -19,16 +23,18 @@
         android:layout_weight="1"
         android:textColor="@color/md_theme_onSurface"
         android:layout_marginStart="15dp"
-        android:textSize="20sp"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="18sp"
         android:layout_gravity="center"
         android:text="Nguyen van a" />
 
 
     <ImageButton
-        android:id="@+id/buttonSend"
+        android:id="@+id/btnChat"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:background="?attr/selectableItemBackgroundBorderless"
         app:srcCompat="@drawable/ic_chat_bubble"
         android:contentDescription="Send message"/>

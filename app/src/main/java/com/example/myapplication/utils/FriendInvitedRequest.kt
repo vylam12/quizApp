@@ -9,3 +9,7 @@ data class AcceptFriendInvitedRequest(
     val idReciver: String,
     val status:String
 )
+data class UnFriendRequest(
+    val idUser:String,
+    val idFriend: String
+)

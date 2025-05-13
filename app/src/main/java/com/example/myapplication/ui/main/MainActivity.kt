@@ -1,12 +1,14 @@
 package com.example.myapplication.ui.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import androidx.core.view.*
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
+import com.example.myapplication.ui.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity :  BaseActivity() {
     private lateinit var bottomNavigationView : BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +16,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bottomNavigationView = findViewById(R.id.bottomNavigation)
-
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.frame_container)) { _, insets ->
+            val isKeyboardVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
+            bottomNavigationView.visibility = if (isKeyboardVisible) View.GONE else View.VISIBLE
+            insets
+        }
         bottomNavigationView.setOnItemSelectedListener { menuItem->
             when(menuItem.itemId){
                 R.id.bottom_message ->{
@@ -34,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.bottom_profile ->{
-                    replaceFrament(FrofileFragment())
+                    replaceFrament(ProfileFragment())
                     true
                 }
                 else -> false
@@ -43,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             bottomNavigationView.selectedItemId = R.id.bottom_message
         }
+
+
     }
 
     private fun replaceFrament(fragment: Fragment){

@@ -1,141 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="28dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:padding="@dimen/_20sdp"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="118dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="11dp"
-            app:srcCompat="@drawable/logo"
-            android:contentDescription="image logo"/>
+            android:layout_width="@dimen/img_width"
+            android:layout_height="104dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_40sdp"
+            app:srcCompat="@drawable/logo_app" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textView2"
             style="@style/TitleText"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_text_login" />
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/title_text_login"
+            android:textSize="@dimen/_18ssp" />
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
             android:text="@string/describe_login"
             android:textAlignment="center"
+            android:fontFamily="@font/poppins_regular"
             android:textColor="@color/md_theme_outline"
-            android:textSize="14sp" />
+            android:textSize="@dimen/_16ssp" />
 
-        <TextView
-            android:id="@+id/textView1"
-            style="@style/InputLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/input_label_gmail" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailTIL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextTextEmail"
-                    style="@style/InputField"
-                    android:layout_width="match_parent"
-                    android:layout_height="57dp"
-                    android:hint="@string/input_gmail"
-                    android:textColor="@color/md_theme_onSurface"
-                    android:inputType="textEmailAddress"/>
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-        <TextView
-            android:id="@+id/textView2"
-            style="@style/InputLabel"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/input_label_password" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:textColorHint="@color/md_theme_onSecondaryContainer"
+            app:boxStrokeColor="@color/md_theme_onSecondaryContainer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="@string/input_gmail"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordTIL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextTextPassword"
-                style="@style/InputField"
-                android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/input_password"
-                android:textColor="@color/md_theme_onSurface"
-                android:inputType="textPassword"/>
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-        <LinearLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColorHint="@color/md_theme_onSecondaryContainer"
+            app:boxStrokeColor="@color/md_theme_onSecondaryContainer"
+            app:passwordToggleTint="@color/black"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="@string/input_password"
+                android:inputType="textPassword"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/lnremember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
             android:orientation="horizontal">
 
             <CheckBox
+                android:id="@+id/checkBoxRemember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/string_remember"
-                android:textColor="@color/md_theme_onSurface"
-                android:textSize="13sp" />
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/secondary_900"
+                android:buttonTint="@color/secondary_900"
+                android:textSize="@dimen/_14ssp"  />
 
             <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
+                android:id="@+id/forgotPassword"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="end"
                 android:text="@string/forgot_pass"
-                android:textAlignment="textEnd"
+                android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/secondary_900"
-                android:textSize="13sp" />
+                android:textSize="@dimen/_14ssp" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
+            android:layout_height="@dimen/button_height"
             android:background="@drawable/button_background"
             android:text="@string/string_login"
-            android:textColor="@color/white" />
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp" />
+
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/lnOr"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/md_theme_outline" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/string_or"
+                android:paddingStart="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/md_theme_outline"
+                android:paddingEnd="@dimen/_5sdp"
+                android:textSize="@dimen/_15ssp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/md_theme_outline" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnGG"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:background="@drawable/btn_gg_background"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:padding="@dimen/_10sdp">
+
+            <ImageView
+                android:layout_width="@dimen/img_gg_height"
+                android:layout_height="@dimen/img_gg_width"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/_5sdp"
+                app:srcCompat="@drawable/logo_gg" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Continue with Google"
+                android:textColor="@color/secondary_700"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_16ssp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lnText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/top_80sdp"
             android:orientation="horizontal">
 
             <TextView
@@ -143,85 +198,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Don’t have an account?"
-                android:textColor="@color/secondary" />
+                android:textColor="@color/secondary"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/_16ssp" />
 
             <TextView
                 android:id="@+id/textSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:elevation="2dp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:text="@string/string_sign_up"
-                android:textColor="#1676F3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="126dp"
-                android:layout_height="1dp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/secondary_500"
-
-                />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginEnd="17dp"
-                android:text="@string/string_or"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="126dp"
-                android:layout_height="1dp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/secondary_500"
-
-                />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/btnGG"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:elevation="2dp"
-            android:background="@drawable/btn_gg_background"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:paddingTop="17.5dp"
-            android:paddingBottom="17.5dp">
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="19dp"
-                android:layout_height="19dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="20dp"
-                app:srcCompat="@drawable/logo_gg" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Continue with Google"
-                android:textColor="@color/secondary_700"
-                android:textSize="16sp" />
-
-
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="#1676F3"
+                android:textSize="@dimen/_16ssp"/>
         </LinearLayout>
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
