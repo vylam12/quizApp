@@ -7,26 +7,25 @@
     tools:context=".ui.main.MainActivity">
 
     <FrameLayout
+        android:id="@+id/frame_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frame_container">
-    </FrameLayout>
+        android:layout_height="match_parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_margin="30dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_30"
         android:background="@drawable/bottom_navigation_bg"
+        android:elevation="@dimen/dimen_20"
+        app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
+        app:itemIconSize="@dimen/dimen_30"
+        app:itemIconTint="@drawable/item_selector_bottom"
+        app:itemRippleColor="@color/md_theme_primaryContainer"
+        app:itemTextColor="@color/black"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:itemIconTint="@drawable/item_selector_bottom"
-        app:itemTextColor="@color/black"
-        android:elevation="40dp"
-        app:itemIconSize="30dp"
-        app:labelVisibilityMode="unlabeled"
-        app:itemRippleColor="@color/md_theme_primaryContainer"
-        app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         app:menu="@menu/main_actions" />
 </androidx.constraintlayout.widget.ConstraintLayout>

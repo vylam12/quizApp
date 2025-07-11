@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@drawable/header_chat"
             android:orientation="horizontal">
+
             <FrameLayout
                 android:id="@+id/backMessage"
                 android:layout_width="48dp"
@@ -27,35 +29,35 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_back_arrow"
                     android:layout_gravity="center"
                     android:contentDescription="Back"
-                    android:importantForAccessibility="yes" />
+                    android:importantForAccessibility="yes"
+                    android:src="@drawable/ic_back_arrow" />
             </FrameLayout>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/avatarUserChat"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:scaleType="centerCrop"
-                android:layout_marginStart="16dp"
                 android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/useravatar"
-                app:strokeWidth="2dp"
+                app:shapeAppearanceOverlay="@style/RoundedImage"
                 app:strokeColor="@color/white"
-                app:shapeAppearanceOverlay="@style/RoundedImage" />
+                app:strokeWidth="2dp" />
 
             <TextView
                 android:id="@+id/nameUserMessages"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="15dp"
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_semibold"
                 android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Peter"
                 android:textColor="@color/md_theme_onPrimary"
-                android:text="Peter" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -70,36 +72,36 @@
             android:scrollbars="vertical" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/bottom_navigation_bg">
+            android:background="@drawable/bottom_navigation_bg"
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <EditText
                 android:id="@+id/editTextMessage"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:imeOptions="actionSend"
-                android:hint="Type a message"
-                android:textColorHint="@color/md_theme_outline"
-                android:textColor="@color/md_theme_onSurface"
-                android:textSize="17sp"
-                android:padding="8dp"
                 android:background="@drawable/input_message"
-                android:inputType="text" />
+                android:hint="Type a message"
+                android:imeOptions="actionSend"
+                android:inputType="text"
+                android:padding="8dp"
+                android:textColor="@color/md_theme_onSurface"
+                android:textColorHint="@color/md_theme_outline"
+                android:textSize="17sp" />
 
             <ImageButton
                 android:id="@+id/buttonSend"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:padding="12dp"
                 android:layout_gravity="center"
                 android:background="@drawable/ripple_send_button"
-                app:srcCompat="@drawable/ic_send"
-                android:contentDescription="Send message"/>
+                android:contentDescription="Send message"
+                android:padding="12dp"
+                app:srcCompat="@drawable/ic_send" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

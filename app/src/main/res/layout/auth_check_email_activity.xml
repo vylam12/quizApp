@@ -1,81 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/backEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_30"
+        android:backgroundTint="@color/md_theme_secondaryContainer"
+        app:cardCornerRadius="@dimen/dimen_50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:contentDescription="@null"
+            app:srcCompat="@drawable/ic_back" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/titleCheckEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_29"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/title_check_email"
+        android:textColor="@color/md_theme_onSurface"
+        android:textSize="@dimen/font_20"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/backEmail"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/desCheckEmail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/check_email"
+        android:textColor="@color/md_theme_outline"
+        android:textSize="@dimen/font_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleCheckEmail" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/backEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="30dp"
-            app:cardCornerRadius="50dp"
-            android:backgroundTint="@color/md_theme_secondaryContainer">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerOtp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/desCheckEmail" />
 
-            <ImageView
+    <TextView
+        android:id="@+id/timerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/time_check_email"
+        android:textColor="@color/md_theme_primary"
+        android:textSize="@dimen/font_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerOtp" />
 
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="2dp"
-                app:srcCompat="@drawable/ic_back" />
-        </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/verifyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_26"
+        android:background="@drawable/button_color_bg"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/btn_verify_code"
+        android:textColor="@color/md_theme_onPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timerTextView" />
 
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:fontFamily="@font/poppins_bold"
-            android:textStyle="bold"
-            android:textColor="@color/md_theme_onSurface"
-            android:text="Check your email" />
-
-        <TextView
-            android:id="@+id/textView25"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="38dp"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="16sp"
-            android:textColor="@color/md_theme_outline"
-            android:text="@string/check_email" />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerOtp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
-        <TextView
-            android:id="@+id/timerTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center"
-            android:text="Resend in 60s"
-            android:textColor="@color/md_theme_primary"
-            android:textSize="16sp"
-            android:fontFamily="@font/poppins_regular"
-            android:clickable="true"
-            android:focusable="true" />
-
-
-        <Button
-            android:id="@+id/verifyBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/md_theme_onPrimary"
-            android:layout_marginTop="26dp"
-            android:layout_gravity="center"
-            android:fontFamily="@font/poppins_semibold"
-            android:background="@drawable/button_color_bg"
-            android:text="@string/btn_verify_code" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

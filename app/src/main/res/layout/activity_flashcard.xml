@@ -15,10 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_gravity="top"
+            android:layout_marginBottom="170dp"
             android:background="@color/md_theme_onSecondaryContainer"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_marginBottom="170dp"
             android:paddingEnd="16dp">
 
             <FrameLayout
@@ -120,23 +120,23 @@
             android:id="@+id/btnKnowWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:textSize="19sp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:fontFamily="@font/poppins_regular"
+            android:text="@string/know_word"
             android:textColor="@color/md_theme_primaryContainer"
-            android:text="@string/know_word" />
+            android:textSize="19sp" />
 
         <Button
             android:id="@+id/btnNext"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="15dp"
             android:background="@color/md_theme_secondary"
             android:fontFamily="@font/poppins_regular"
             android:padding="10dp"
-            android:layout_marginTop="15dp"
             android:text="Next card" />
     </LinearLayout>
 

@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp"
     android:orientation="horizontal">
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/profileAvatarFriend"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/useravatar"
-        app:strokeWidth="2dp"
-        android:layout_gravity="center"
-        app:strokeColor="@color/white"
-        app:shapeAppearanceOverlay="@style/RoundedImage" />
 
-    <TextView
-        android:id="@+id/nameFriend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textColor="@color/md_theme_onSurface"
-        android:layout_marginStart="15dp"
-        android:fontFamily="@font/poppins_regular"
-        android:textSize="18sp"
-        android:layout_gravity="center"
-        android:text="Nguyen van a" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="@dimen/dimen_18">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileAvatarFriend"
+            android:layout_width="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_50"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:scaleType="centerCrop"
+            android:src="@drawable/useravatar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/RoundedImage"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2dp" />
+
+        <TextView
+            android:id="@+id/nameFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/name_user"
+            android:textColor="@color/md_theme_onSurface"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profileAvatarFriend"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnChat"
+            android:layout_width="@dimen/dimen_48"
+            android:layout_height="@dimen/dimen_48"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@null"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_chat_bubble" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <ImageButton
-        android:id="@+id/btnChat"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        app:srcCompat="@drawable/ic_chat_bubble"
-        android:contentDescription="Send message"/>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>
